@@ -1,0 +1,5 @@
+ru:
+  expense_heading: 'Название'
+  expense_amount: 'Кол-во'
+  expense_type: 'Рубрика'
+  created_at: 'Дата создания'

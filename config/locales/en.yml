@@ -30,4 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  expense_heading: 'Name'
+  expense_amount: 'Amount'
+  expense_type: 'Rubric'
+  created_at: 'Created at'

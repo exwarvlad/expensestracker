@@ -1,25 +1,55 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Expenses</h1>
-<%= link_to 'New Expense', new_expense_path %>
+<div class="container-fluid">
 
-<br>
+  <h1>Expenses</h1>
+  <%= link_to 'New Expense', new_expense_path, class: 'btn btn-success' %>
 
-<table>
-  <thead>
+<div class="row">
+
+  <div class="col-lg-9">
+  <table class="table table-striped" width="80%">
+    <thead class="thead-dark">
     <tr>
-      <th colspan="3"></th>
+      <th><%= t(:expense_heading) %></th>
+      <th><%= t(:expense_amount) %></th>
+      <th><%= t(:expense_type) %></th>
+      <th><%= t(:created_at) %></th>
+      <th></th>
+      <th></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @expenses.each do |expense| %>
-      <tr>
-        <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
-        <td><%= link_to 'Destroy', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <tr>
+          <td><%= expense.name %></td>
+          <td><%= number_to_currency(expense.amount, unit: expense.type_amount, separator: '.', format: '%n %u') %></td>
+          <td><%= expense.expense_type %></td>
+          <td><%= expense.created_at %></td>
+          <td><%= link_to 'Edit', edit_expense_path(expense), class: 'btn btn-warning' %></td>
+          <td><%= link_to 'Destroy', expense, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' %></td>
+        </tr>
     <% end %>
-  </tbody>
-</table>
+    <tr>
+      <td>Total: asf</td>
+      <td>Total: asf</td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
 
+  <div class="col-lg-3">
+    <div class="well sidebar-nav">
+      <h3>Sidebar</h3>
+      <ul class="nav nav-list">
+        <li class="nav-header">Sidebar</li>
+        <li><%= link_to "Link1", "/path1"  %></li>
+        <li><%= link_to "Link2", "/path2"  %></li>
+        <li><%= link_to "Link3", "/path3"  %></li>
+      </ul>
+    </div><!--/.well -->
+  </div><!--/span-->
+</div>
+</div>
 
