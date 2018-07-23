@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2018_07_05_131428) do
   enable_extension "plpgsql"
 
   create_table "expenses", force: :cascade do |t|
-    t.string "amount"
+    t.decimal "amount", default: "0.0", null: false
     t.string "name"
-    t.string "type_amount"
+    t.string "type_amount", default: "$", null: false
     t.string "expense_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

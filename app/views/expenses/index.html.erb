@@ -1,14 +1,16 @@
-<p id="notice"><%= notice %></p>
-
 <div class="container-fluid">
-
-  <h1>Expenses</h1>
   <%= link_to 'New Expense', new_expense_path, class: 'btn btn-success' %>
+  <br><br>
+  <%= form_tag('', method: :get, remote: true) do %>
+    <span class="destroyer">Expenses</span>
+    <%= text_field_tag('', '', placeholder: t(:expenses_search), id: 'search', maxlength: Expense::MAX_LENGTH) %>
+    <br>
+<% end %>
 
 <div class="row">
 
   <div class="col-lg-9">
-  <table class="table table-striped" width="80%">
+  <table class="table table-striped" id="search_list">
     <thead class="thead-dark">
     <tr>
       <th><%= t(:expense_heading) %></th>
@@ -21,22 +23,20 @@
     </thead>
 
     <tbody>
-    <% @expenses.each do |expense| %>
-        <tr>
+    <% @expenses.each_with_index do |expense, index| %>
+        <tr id="<%= "col_#{ index + 1 }" %>">
           <td><%= expense.name %></td>
           <td><%= number_to_currency(expense.amount, unit: expense.type_amount, separator: '.', format: '%n %u') %></td>
           <td><%= expense.expense_type %></td>
           <td><%= expense.created_at %></td>
           <td><%= link_to 'Edit', edit_expense_path(expense), class: 'btn btn-warning' %></td>
-          <td><%= link_to 'Destroy', expense, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' %></td>
+          <td><%= link_to 'Destroy', expense_path(expense, tr_id: index + 1), method: :delete,
+                          class: 'btn btn-danger destroyer', remote: true %></td>
         </tr>
     <% end %>
-    <tr>
-      <td>Total: asf</td>
-      <td>Total: asf</td>
-    </tr>
     </tbody>
   </table>
+    <p id="total_sum">Total: <%= number_to_currency(Expense.pluck(:amount).sum, unit: '$', separator: '.', format: '%n %u') %></p>
   </div>
 
   <div class="col-lg-3">

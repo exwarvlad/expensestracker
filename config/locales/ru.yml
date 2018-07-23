@@ -3,3 +3,6 @@ ru:
   expense_amount: 'Кол-во'
   expense_type: 'Рубрика'
   created_at: 'Дата создания'
+  expenses_search: 'Поиск по имени'
+  detroyer: 'Вы уверены?'
+  total: 'Общая сума'

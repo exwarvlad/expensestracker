@@ -16,3 +16,20 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+$(document).ready(function() {
+    $('#search').on('keyup', function() {
+        var value;
+        value = $(this).val().toLowerCase();
+        $('#search_list tr').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+});
+
+// $(document).ready(function() {
+//     $('#destroyer').on('click', function() {
+//         console.log(42)
+//     });
+// });
+

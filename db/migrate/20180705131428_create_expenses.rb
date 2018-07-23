@@ -1,9 +1,9 @@
 class CreateExpenses < ActiveRecord::Migration[5.2]
   def change
     create_table :expenses do |t|
-      t.string :amount
+      t.decimal :amount, null: false, default: 0
       t.string :name
-      t.string :type_amount
+      t.string :type_amount, null: false, default: '$'
       t.string :expense_type
 
       t.timestamps null: false
