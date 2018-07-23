@@ -1,5 +1,7 @@
+<%= render 'expenses/form' %>
+
 <div class="container-fluid">
-  <%= link_to 'New Expense', new_expense_path, class: 'btn btn-success' %>
+  <%= link_to 'New Expense', '', class: 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#exampleModal'%>
   <br><br>
   <%= form_tag('', method: :get, remote: true) do %>
     <span class="destroyer">Expenses</span>
@@ -10,7 +12,7 @@
 <div class="row">
 
   <div class="col-lg-9">
-  <table class="table table-striped" id="search_list">
+  <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
       <th><%= t(:expense_heading) %></th>
@@ -22,7 +24,7 @@
     </tr>
     </thead>
 
-    <tbody>
+    <tbody id="search_list">
     <% @expenses.each_with_index do |expense, index| %>
         <tr id="<%= "col_#{ index + 1 }" %>">
           <td><%= expense.name %></td>

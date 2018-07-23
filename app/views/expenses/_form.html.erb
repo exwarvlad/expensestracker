@@ -1,17 +1,66 @@
-<%= form_with(model: expense, local: true) do |form| %>
-  <% if expense.errors.any? %>
+<%= form_for(@expense, local: true, remote: true) do |form| %>
+  <% if @expense.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(expense.errors.count, "error") %> prohibited this expense from being saved:</h2>
+      <h2><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h2>
 
       <ul>
-      <% expense.errors.full_messages.each do |message| %>
+      <% @expense.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Expense new</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="actions">
+            <form action="create.js.coffee">
+              <div class="form-group row">
+                <%= form.label :name, class: 'col-xs-3 col-form-label mr-2' %>
+                <div class="col-xs-9">
+                  <%= form.text_field :name, class: 'form-control' %>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <%= form.label :amount, class: 'col-xs-3 col-form-label mr-2' %>
+                <div class="col-xs-9">
+                  <%= form.text_field :amount, class: 'form-control' %>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <%= form.label :type_amount, class: 'col-xs-3 col-form-label mr-2' %>
+                <div class="col-xs-9">
+                  <%= form.text_field :type_amount, class: 'form-control' %>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <%= form.label :expense_type, class: 'col-xs-3 col-form-label mr-2' %>
+                <div class="col-xs-9">
+                  <%= form.text_field :expense_type, class: 'form-control' %>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= form.submit(class: 'btn btn-primary') %>
+        </div>
+      </div>
+    </div>
   </div>
+
+
 <% end %>

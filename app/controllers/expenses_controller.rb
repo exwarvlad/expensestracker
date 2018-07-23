@@ -5,6 +5,7 @@ class ExpensesController < ApplicationController
   # GET /expenses.json
   def index
     @expenses = Expense.all
+    @expense = Expense.new
   end
 
   # GET /expenses/1
@@ -28,9 +29,11 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
+        # format.js {}
         format.html { redirect_to root_path, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }
       else
+        # format.js {}
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
       end
@@ -73,6 +76,7 @@ class ExpensesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
-      params.fetch(:expense, {})
+      # params.fetch(:expense, {})
+      params.require(:expense).permit(:name, :amount, :type_amount, :expense_type)
     end
 end
