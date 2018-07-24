@@ -1,5 +1,9 @@
 <%= render 'expenses/form' %>
 
+<% if flash[:notice] %>
+<% end %>
+<div class="notice"></div>
+
 <div class="container-fluid">
   <%= link_to 'New Expense', '', class: 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#exampleModal'%>
   <br><br>
@@ -38,7 +42,7 @@
     <% end %>
     </tbody>
   </table>
-    <p id="total_sum">Total: <%= number_to_currency(Expense.pluck(:amount).sum, unit: '$', separator: '.', format: '%n %u') %></p>
+    <p id="total_sum">Total: <%= Expense.total_sum %></p>
   </div>
 
   <div class="col-lg-3">

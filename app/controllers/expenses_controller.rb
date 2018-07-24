@@ -31,7 +31,7 @@ class ExpensesController < ApplicationController
       if @expense.save
         format.html { redirect_to root_path, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }
-        format.js {}
+        format.js { flash[:notice] = 'Expense was successfully created.' }
       else
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
@@ -58,9 +58,6 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1.json
   def destroy
     @expense.destroy
-    @total_sum = ActionController::Base.helpers.number_to_currency(
-        Expense.pluck(:amount).sum, unit: '$', separator: '.', format: '%n %u'
-    )
     respond_to do |format|
       format.html { redirect_to expenses_url, notice: 'Expense was successfully destroyed.' }
       format.json { head :no_content }
@@ -70,13 +67,13 @@ class ExpensesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_expense
-      @expense = Expense.find(params[:id])
-    end
+  def set_expense
+    @expense = Expense.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def expense_params
-      # params.fetch(:expense, {})
-      params.require(:expense).permit(:name, :amount, :type_amount, :expense_type)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def expense_params
+    # params.fetch(:expense, {})
+    params.require(:expense).permit(:name, :amount, :type_amount, :expense_type)
+  end
 end
