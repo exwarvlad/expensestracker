@@ -31,7 +31,7 @@ class ExpensesController < ApplicationController
       if @expense.save
         format.html { redirect_to root_path, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }
-        format.js { flash[:notice] = 'Expense was successfully created.' }
+        format.js { flash.now[:notice] = 'Expense was successfully created.' }
       else
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
