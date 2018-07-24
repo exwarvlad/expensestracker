@@ -29,13 +29,13 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
-        # format.js {}
         format.html { redirect_to root_path, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }
+        format.js {}
       else
-        # format.js {}
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
+        format.js {}
       end
     end
   end
