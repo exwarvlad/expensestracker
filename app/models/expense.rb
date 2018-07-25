@@ -1,4 +1,6 @@
 class Expense < ApplicationRecord
+  paginates_per 10
+
   MIN_LENGTH = 1
   MAX_LENGTH = 22
 

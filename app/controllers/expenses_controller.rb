@@ -5,6 +5,7 @@ class ExpensesController < ApplicationController
   # GET /expenses.json
   def index
     @expenses = Expense.all
+    @expenses2 = Expense.all.page params[:page]
     @expense = Expense.new
   end
 
