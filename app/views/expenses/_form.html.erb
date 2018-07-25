@@ -23,31 +23,32 @@
         <div class="modal-body">
           <div class="actions">
             <form action="create.js.coffee">
+
               <div class="form-group row">
                 <%= form.label :name, class: 'col-xs-3 col-form-label mr-2' %>
                 <div class="col-xs-9">
-                  <%= form.text_field :name, class: 'form-control', maxlength: Expense::MAX_LENGTH %>
+                  <%= form.text_field :name, class: 'form-control clear_after_create', maxlength: Expense::MAX_LENGTH %>
                 </div>
               </div>
 
               <div class="form-group row">
                 <%= form.label :amount, class: 'col-xs-3 col-form-label mr-2' %>
                 <div class="col-xs-9">
-                  <%= form.text_field :amount, class: 'form-control' %>
+                  <%= form.text_field :amount, value: '', class: 'form-control clear_after_create' %>
                 </div>
               </div>
 
               <div class="form-group row">
                 <%= form.label :type_amount, class: 'col-xs-3 col-form-label mr-2' %>
                 <div class="col-xs-9">
-                  <%= form.text_field :type_amount, class: 'form-control' %>
+                  <%= form.text_field :type_amount, value: '', class: 'form-control clear_after_create' %>
                 </div>
               </div>
 
               <div class="form-group row">
                 <%= form.label :expense_type, class: 'col-xs-3 col-form-label mr-2' %>
-                <div class="col-xs-9">
-                  <%= form.text_field :expense_type, class: 'form-control' %>
+                <div class="col-xs-9 clear_after_create">
+                  <%= form.text_field :expense_type, class: 'form-control clear_after_create' %>
                 </div>
               </div>
             </form>
