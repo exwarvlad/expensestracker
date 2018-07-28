@@ -31,7 +31,9 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
+gem 'figaro'
 gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

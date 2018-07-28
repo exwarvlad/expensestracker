@@ -27,7 +27,7 @@
     </thead>
 
     <tbody id="search_list">
-    <% @expenses2.each_with_index do |expense, index| %>
+    <% @expenses.each_with_index do |expense, index| %>
         <tr id="<%= "col_#{ index + 1 }" %>">
           <td><%= expense.name %></td>
           <td><%= number_to_currency(expense.amount, unit: expense.type_amount, separator: '.', format: '%n %u') %></td>
@@ -40,8 +40,8 @@
     <% end %>
     </tbody>
   </table>
-    <%= paginate @expenses2 %>
     <p id="total_sum">Total: <%= Expense.total_sum %></p>
+    <%= paginate @expenses, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>
   </div>
 
   <div class="col-lg-3">
