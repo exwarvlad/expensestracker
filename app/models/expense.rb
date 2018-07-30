@@ -9,14 +9,14 @@ class Expense < ApplicationRecord
   # check current currency
   def currency
     ActionController::Base.helpers.number_to_currency(
-      amount, unit: '$', delimeter: '.', format: '%n %u'
+      amount, unit: '$', delimiter: '.', format: '%n %u'
     )
   end
 
   # check current total sum
   def self.total_sum
     ActionController::Base.helpers.number_to_currency(
-      Expense.pluck(:amount).sum, unit: '$', delimeter: '.', format: '%n %u'
+      Expense.pluck(:amount).sum, unit: '$', delimiter: '.', format: '%n %u'
     )
   end
 end

@@ -5,7 +5,6 @@ class ExpensesController < ApplicationController
   # GET /expenses.json
   def index
     @expenses = Expense.all.page params[:page]
-    @expense = Expense.new
   end
 
   # GET /expenses/1
@@ -16,10 +15,18 @@ class ExpensesController < ApplicationController
   # GET /expenses/new
   def new
     @expense = Expense.new
+    respond_to do |format|
+      format.html
+      format.js { render template: 'expenses/modal' }
+    end
   end
 
   # GET /expenses/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js { render template: 'expenses/modal' }
+    end
   end
 
   # POST /expenses
@@ -35,7 +42,7 @@ class ExpensesController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
-        format.js {}
+        format.js
       end
     end
   end
@@ -43,13 +50,17 @@ class ExpensesController < ApplicationController
   # PATCH/PUT /expenses/1
   # PATCH/PUT /expenses/1.json
   def update
+    byebug
     respond_to do |format|
       if @expense.update(expense_params)
+        flash.now.notice = 'Expense was successfully updated.'
         format.html { redirect_to @expense, notice: 'Expense was successfully updated.' }
         format.json { render :show, status: :ok, location: @expense }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -57,11 +68,12 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1
   # DELETE /expenses/1.json
   def destroy
+    # byebug
     @expense.destroy
     respond_to do |format|
-      format.html { redirect_to expenses_url, notice: 'Expense was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Expense was successfully destroyed.' }
       format.json { head :no_content }
-      format.js {}
+      format.js
     end
   end
 

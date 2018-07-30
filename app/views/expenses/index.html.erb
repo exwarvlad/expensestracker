@@ -1,12 +1,11 @@
-<%= render 'expenses/form' %>
-
 <div class="notice"></div>
+<div id="myModal"></div>
 
 <div class="container-fluid">
-  <%= link_to 'New Expense', '', class: 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#exampleModal'%>
+  <%= link_to 'New Expense', new_expense_path, class: 'btn btn-success', remote: true %>
   <br><br>
   <%= form_tag('', method: :get, remote: true) do %>
-    <span class="destroyer">Expenses</span>
+    <span>Expenses</span>
     <%= text_field_tag('', '', placeholder: t(:expenses_search), id: 'search', maxlength: Expense::MAX_LENGTH) %>
     <br>
 <% end %>
@@ -32,8 +31,8 @@
           <td><%= expense.name %></td>
           <td><%= number_to_currency(expense.amount, unit: expense.type_amount, separator: '.', format: '%n %u') %></td>
           <td><%= expense.expense_type %></td>
-          <td><%= expense.created_at %></td>
-          <td><%= link_to 'Edit', edit_expense_path(expense), class: 'btn btn-warning' %></td>
+          <td><%= expense.created_at.strftime('%d.%m.%Y') %></td>
+          <td><%= link_to 'Edit', edit_expense_path(expense, tr_id: index + 1), class: 'btn btn-warning', remote: true %></td>
           <td><%= link_to 'Destroy', expense_path(expense, tr_id: index + 1), method: :delete,
                           class: 'btn btn-danger destroyer', remote: true %></td>
         </tr>
@@ -41,7 +40,7 @@
     </tbody>
   </table>
     <p id="total_sum">Total: <%= Expense.total_sum %></p>
-    <%= paginate @expenses, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>
+    <%= paginate @expenses, theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
   </div>
 
   <div class="col-lg-3">

@@ -14,9 +14,6 @@ $('#search_list tr:first').before(
 )
 
 $('#total_sum').html('<%= t(:total) %>: ' + '<%= Expense.total_sum %>')
-
-$('.clear_after_create').val('')
-
 # clearing a yellow background of the input for a chrome
 # https://stackoverflow.com/questions/29120333/remove-the-yellow-background-on-input-on-autofill#answer-29120510
-$('.clear_after_create').css('-webkit-box-shadow', '0 0 0px 1000px white inset')
+#$('.clear_after_create').css('-webkit-box-shadow', '0 0 0px 1000px white inset')
