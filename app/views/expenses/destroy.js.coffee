@@ -1,4 +1,4 @@
-$('#col_' + <%= params[:tr_id] %>).hide('slow', ->
+$('#col_' + <%= params[:id] %>).hide('slow', ->
  $(this).remove()
 )
 

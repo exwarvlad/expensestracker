@@ -6,3 +6,6 @@ ru:
   expenses_search: 'Поиск по имени'
   detroyer: 'Вы уверены?'
   total: 'Общая сума'
+  log_in: 'Войти'
+  sign_up: 'Зарегистрироваться'
+  sign_out: 'Выйти'

@@ -37,3 +37,6 @@ en:
   expenses_search: 'Search from a name'
   detroyer: 'Are you sure?'
   total: 'Total'
+  log_in: 'Log in'
+  sign_up: 'Registration'
+  sign_out: 'Log out'

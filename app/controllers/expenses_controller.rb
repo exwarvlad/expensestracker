@@ -50,7 +50,6 @@ class ExpensesController < ApplicationController
   # PATCH/PUT /expenses/1
   # PATCH/PUT /expenses/1.json
   def update
-    byebug
     respond_to do |format|
       if @expense.update(expense_params)
         flash.now.notice = 'Expense was successfully updated.'
@@ -68,7 +67,6 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1
   # DELETE /expenses/1.json
   def destroy
-    # byebug
     @expense.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Expense was successfully destroyed.' }

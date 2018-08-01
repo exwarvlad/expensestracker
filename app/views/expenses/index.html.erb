@@ -1,7 +1,6 @@
 <div class="notice"></div>
 <div id="myModal"></div>
 
-<div class="container-fluid">
   <%= link_to 'New Expense', new_expense_path, class: 'btn btn-success', remote: true %>
   <br><br>
   <%= form_tag('', method: :get, remote: true) do %>
@@ -27,13 +26,13 @@
 
     <tbody id="search_list">
     <% @expenses.each_with_index do |expense, index| %>
-        <tr id="<%= "col_#{ index + 1 }" %>">
+        <tr id="<%= "col_#{ expense.id }" %>">
           <td><%= expense.name %></td>
-          <td><%= number_to_currency(expense.amount, unit: expense.type_amount, separator: '.', format: '%n %u') %></td>
+          <td><%= number_to_currency(expense.amount, unit: expense.type_amount, delimiter: '.', format: '%n %u') %></td>
           <td><%= expense.expense_type %></td>
           <td><%= expense.created_at.strftime('%d.%m.%Y') %></td>
-          <td><%= link_to 'Edit', edit_expense_path(expense, tr_id: index + 1), class: 'btn btn-warning', remote: true %></td>
-          <td><%= link_to 'Destroy', expense_path(expense, tr_id: index + 1), method: :delete,
+          <td><%= link_to 'Edit', edit_expense_path(expense), class: 'btn btn-warning', remote: true %></td>
+          <td><%= link_to 'Destroy', expense_path(expense), method: :delete,
                           class: 'btn btn-danger destroyer', remote: true %></td>
         </tr>
     <% end %>
@@ -54,6 +53,5 @@
       </ul>
     </div><!--/.well -->
   </div><!--/span-->
-</div>
 </div>
 

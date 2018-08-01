@@ -30,17 +30,22 @@
         <a class="navbar-brand" href=<%= root_path %>>ExpensesTracker</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Link1", "/path1"  %></li>
-            <li><%= link_to "Link2", "/path2"  %></li>
-            <li><%= link_to "Link3", "/path3"  %></li>
+            <% if user_signed_in? %>
+                <li><%= link_to t(:sign_out), destroy_user_session_path, method: :delete  %></li>
+              <% else %>
+              <li><%= link_to t(:log_in), new_user_session_path  %></li>
+              <li><%= link_to t(:sign_up), new_user_registration_path  %></li>
+            <% end %>
           </ul>
         </div>
       </div>
     </div>
 
 
+    <div class="container-fluid">
           <%= bootstrap_flash %>
           <%= yield %>
+    </div>
 
     <div class="footer">
       <div class="container-fluid">
