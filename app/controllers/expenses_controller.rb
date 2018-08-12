@@ -1,10 +1,11 @@
 class ExpensesController < ApplicationController
   before_action :set_expense, only: [:edit, :update, :destroy]
+  before_action :set_filter, only: :index
 
   # GET /expenses
   # GET /expenses.json
   def index
-    @expenses = Expense.all.page params[:page]
+    @expenses = Filter.check_expenses(current_user.id).page params[:page]
   end
 
   # GET /expenses/1
@@ -52,10 +53,9 @@ class ExpensesController < ApplicationController
   def update
     respond_to do |format|
       if @expense.update(expense_params)
-        flash.now.notice = 'Expense was successfully updated.'
         format.html { redirect_to @expense, notice: 'Expense was successfully updated.' }
         format.json { render :show, status: :ok, location: @expense }
-        format.js
+        format.js { flash.now.notice = 'Expense was successfully updated.' }
       else
         format.html { render :edit }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
@@ -71,7 +71,7 @@ class ExpensesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Expense was successfully destroyed.' }
       format.json { head :no_content }
-      format.js
+      format.js { flash.now.notice = 'Expense was successfully destroyed.' }
     end
   end
 
@@ -81,9 +81,13 @@ class ExpensesController < ApplicationController
     @expense = Expense.find(params[:id])
   end
 
+  def set_filter
+    @filter = Filter.joins(user: current_user)
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_params
     # params.fetch(:expense, {})
-    params.require(:expense).permit(:name, :amount, :type_amount, :expense_type)
+    params.require(:expense).permit(:name, :amount, :type_amount, :expense_type, :user_id, :for_rubric, :abc)
   end
 end

@@ -9,3 +9,7 @@ $(document).ready ->
 
 
 console.log 42
+
+$(document).ready ->
+  $('input[name="dates"]').daterangepicker()
+return

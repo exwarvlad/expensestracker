@@ -12,11 +12,6 @@
  *
  *= require_tree .
  *= require_self
+ *= require daterangepicker
+ *= require font-awesome
  */
-
-/*.footer {*/
-    /*position: absolute;*/
-    /*left: 0;*/
-    /*bottom: 0;*/
-    /*width: 100%;*/
-/*}*/

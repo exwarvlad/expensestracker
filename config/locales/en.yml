@@ -38,5 +38,6 @@ en:
   detroyer: 'Are you sure?'
   total: 'Total'
   log_in: 'Log in'
-  sign_up: 'Registration'
+  sign_up: 'Sign up'
   sign_out: 'Log out'
+  expenses_filters: 'Filters'

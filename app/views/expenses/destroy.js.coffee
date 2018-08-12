@@ -3,3 +3,4 @@ $('#col_' + <%= params[:id] %>).hide('slow', ->
 )
 
 $('#total_sum').html('<%= t(:total) %>: ' + '<%= Expense.total_sum %>')
+$('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")

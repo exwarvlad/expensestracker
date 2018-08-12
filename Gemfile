@@ -34,6 +34,11 @@ gem 'jquery-rails'
 gem 'figaro'
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
+gem 'has_scope'
+
+gem 'datejs-rails'
+gem 'bootstrap-daterangepicker-rails'
+gem 'font-awesome-rails'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
