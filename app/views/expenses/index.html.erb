@@ -1,3 +1,9 @@
+<script type="text/javascript" charset="utf-8">
+  // assets/javascripts/application.js
+  var duration_start = "<%= @filter.duration_start %>";
+  var duration_end = "<%= @filter.duration_end %>";
+</script>
+
 <div class="notice"></div>
 <div id="myModal"></div>
 
@@ -46,22 +52,26 @@
     <div class="well sidebar-nav">
       <h3><%= t(:expenses_filters) %></h3>
       <div class="link-tags">
-        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-          <i class="fa fa-calendar"></i>&nbsp;
-          <span></span> <i class="fa fa-caret-down"></i>
-        </div>
-        <br>
-
         <%= form_for(current_user, url: user_filter_path(current_user), method: :put) do |f| %>
-          <%= label_tag 'filter[rubric_names]', 'Rubrics' %>
-          <%= text_field_tag 'filter[rubric_names]', current_user.filter['rubric_name'], placeholder: 'Rubric1,Rubric2', value: current_user.filter.filter['rubric_names'] %>
+          <%= hidden_field_tag 'duration' %>
+
+          <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+            <i class="fa fa-calendar"></i>&nbsp;
+            <span id="filter_date_duration"></span> <i class="fa fa-caret-down"></i>
+          </div>
+          <br>
+
+          <%= f.hidden_field_tag :duration %>
+
+          <%= label_tag 'data[rubric_names]', 'Rubrics' %>
+          <%= text_field_tag '[data[rubric_names]]', current_user.filter.data['rubric_name'], placeholder: 'Rubric1,Rubric2', value: current_user.filter.data['rubric_names'] %>
           <br><br>
 
-          <%= label_tag 'filter[amount][start]', 'Amount range' %>
+          <%= label_tag 'data[amount][start]', 'Amount range' %>
           <span> >= </span>
-          <%= text_field_tag 'filter[amount][start]', current_user.filter.filter['amount']['start'], size: 5, placeholder: '0' %>
+          <%= text_field_tag 'data[amount][start]', round_amount(current_user.filter.data['amount']['start']), size: 5, placeholder: '0.00' %>
           <span> <= </span>
-          <%= text_field_tag 'filter[amount][finish]', current_user.filter.filter['amount']['finish'], size: 5, placeholder: '∞', class: 'placeholder_center' %>
+          <%= text_field_tag 'data[amount][finish]', round_amount(current_user.filter.data['amount']['finish']), size: 5, placeholder: '∞', class: 'placeholder_center' %>
           <br>
 
           <%= button_to user_filter_path(current_user), method: :put, style: 'background: none; border: none;' do %>

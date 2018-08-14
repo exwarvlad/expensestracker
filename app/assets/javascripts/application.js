@@ -31,8 +31,9 @@ $(document).ready(function() {
 
 $(function() {
 
-    var start = moment().subtract(29, 'days');
-    var end = moment();
+    // duration_start and duration_end initializing in the expenses/index.html.erb
+    var start = moment(duration_start);
+    var end = moment(duration_end);
 
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));

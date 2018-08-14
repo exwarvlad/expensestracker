@@ -5,10 +5,7 @@ class Expense < ApplicationRecord
   MIN_LENGTH = 1
   MAX_LENGTH = 25
 
-  before_create :build_user_id
-
   # validates :name, length: { in: MIN_LENGTH..MAX_LENGTH }
-  validates :user, uniqueness: true
 
   # check current currency
   def currency
@@ -22,11 +19,5 @@ class Expense < ApplicationRecord
     ActionController::Base.helpers.number_to_currency(
       Expense.pluck(:amount).sum, unit: '$', delimiter: ' ', format: '%n %u'
     )
-  end
-
-  private
-
-  def build_user_id
-    self.user_id = current_user.id
   end
 end
