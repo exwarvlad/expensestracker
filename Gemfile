@@ -34,6 +34,7 @@ gem 'jquery-rails'
 gem 'figaro'
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
+gem 'activerecord_json_validator'
 
 gem 'datejs-rails'
 gem 'bootstrap-daterangepicker-rails'

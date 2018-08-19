@@ -1,0 +1,24 @@
+{
+  "properties": {
+    "rubric_names": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "object",
+      "properties": {
+        "start":  {"type": "float"},
+        "finish": {"type": "string"}
+      },
+      "required": ["start", "finish"]
+    },
+    "duration": {
+      "type": "string",
+      "properties": {
+        "custom_range": {"type": "string"}
+      }
+    }
+  },
+  "required": ["rubric_names", "amount", "duration"],
+  "type": "object",
+  "additionalProperties": false
+}

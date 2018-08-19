@@ -1,7 +1,7 @@
 <script type="text/javascript" charset="utf-8">
   // assets/javascripts/application.js
-  var duration_start = "<%= @filter.duration_start %>";
-  var duration_end = "<%= @filter.duration_end %>";
+  var duration_start = "<%= @filter.first %>";
+  var duration_end = "<%= @filter.last.to_date %>";
 </script>
 
 <div class="notice"></div>
@@ -44,7 +44,7 @@
     <% end %>
     </tbody>
   </table>
-    <p id="total_sum">Total: <%= Expense.total_sum %></p>
+    <p id="total_sum">Total: <%= Expense.total_sum(current_user.id) %></p>
     <%= paginate @expenses, theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
   </div>
 
@@ -53,15 +53,13 @@
       <h3><%= t(:expenses_filters) %></h3>
       <div class="link-tags">
         <%= form_for(current_user, url: user_filter_path(current_user), method: :put) do |f| %>
-          <%= hidden_field_tag 'duration' %>
+          <%= hidden_field_tag 'data[duration]' %>
 
           <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
             <i class="fa fa-calendar"></i>&nbsp;
             <span id="filter_date_duration"></span> <i class="fa fa-caret-down"></i>
           </div>
           <br>
-
-          <%= f.hidden_field_tag :duration %>
 
           <%= label_tag 'data[rubric_names]', 'Rubrics' %>
           <%= text_field_tag '[data[rubric_names]]', current_user.filter.data['rubric_name'], placeholder: 'Rubric1,Rubric2', value: current_user.filter.data['rubric_names'] %>

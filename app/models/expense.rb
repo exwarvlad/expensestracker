@@ -5,7 +5,7 @@ class Expense < ApplicationRecord
   MIN_LENGTH = 1
   MAX_LENGTH = 25
 
-  # validates :name, length: { in: MIN_LENGTH..MAX_LENGTH }
+  validates :name, length: { in: MIN_LENGTH..MAX_LENGTH }
 
   # check current currency
   def currency
@@ -15,9 +15,9 @@ class Expense < ApplicationRecord
   end
 
   # check current total sum
-  def self.total_sum
+  def self.total_sum(user_id)
     ActionController::Base.helpers.number_to_currency(
-      Expense.pluck(:amount).sum, unit: '$', delimiter: ' ', format: '%n %u'
+      Filter.check_expenses(user_id).pluck(:amount).sum, unit: '$', delimiter: ' ', format: '%n %u'
     )
   end
 end

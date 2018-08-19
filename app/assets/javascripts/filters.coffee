@@ -11,7 +11,7 @@
 
 $(document).ready ->
   $('.edit_user').submit ->
-    $('input[name=duration]').val(
+    $('#data_duration').val(
       $('#filter_date_duration').html()
     )
   return

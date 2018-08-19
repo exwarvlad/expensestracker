@@ -1,6 +1,7 @@
 class ExpensesController < ApplicationController
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
+  before_action :set_total_sum, except: [:new, :edit]
 
   # GET /expenses
   # GET /expenses.json
@@ -54,7 +55,7 @@ class ExpensesController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
-        format.js
+        format.js { render :edit }
       end
     end
   end
@@ -77,11 +78,17 @@ class ExpensesController < ApplicationController
   end
 
   def set_filter
-    @filter = Filter.find { |f| f.user_id == current_user.id }
+    filter = Filter.find { |f| f.user_id == current_user.id }.data['duration']
+    @filter = Filter.check_duration_range(filter)
+    # byebug
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_params
     params.require(:expense).permit(:name, :amount, :type_amount, :expense_type)
+  end
+
+  def set_total_sum
+    @total_sum = Filter.check_expenses(current_user.id).pluck(:amount).sum
   end
 end

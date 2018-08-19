@@ -11,4 +11,4 @@ $('<%=j "#col_#{@expense.id}" %>').html(
 )
 
 
-$('#total_sum').html('<%= t(:total) %>: ' + '<%= Expense.total_sum %>')
+$('#total_sum').html('<%= t(:total) %>: ' + '<%= Expense.total_sum(current_user.id) %>')

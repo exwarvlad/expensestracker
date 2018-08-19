@@ -1,8 +1,17 @@
 class Filter < ApplicationRecord
-  DEFAULT_PARAMS = {
-      'rubric_names' => '',
-      'amount' => { 'start' => '', 'finish' => '' }
+  belongs_to :user
+
+  JSON_SCHEMA = "#{Rails.root}/app/models/schemas/filter/data.json"
+
+  DEFAULT_DATA_PARAMS = {
+      rubric_names: '',
+      amount: { start: '', finish: '' }
   }
+
+  before_update :build_duration
+
+  validates :data, presence: true, json: { schema: JSON_SCHEMA }
+  validate :amount_range
 
   def self.check_expenses(user_id)
     current_filter = User.find(user_id).filter
@@ -11,10 +20,12 @@ class Filter < ApplicationRecord
     Expense.where("#{default_query}
                    #{rubrics_query(data_filter)}
                    #{amount_range_query(data_filter)}
-                   #{duration(current_filter)}")
+                   #{duration_query(Filter.check_duration_range(data_filter['duration']))}")
   end
 
   private
+
+  extend ActiveSupport::Concern::DateQueryCalculator
 
   def self.rubrics_query(current_user_filters)
     if current_user_filters['rubric_names'].present?
@@ -36,7 +47,23 @@ class Filter < ApplicationRecord
     end
   end
 
-  def self.duration(filter)
-    " AND created_at BETWEEN '#{filter.duration_start.beginning_of_day}' AND '#{filter.duration_end.end_of_day}'"
+  def self.duration_query(filter)
+    " AND created_at BETWEEN '#{filter.first.end_of_day}' AND '#{filter.last.end_of_day}'"
+  end
+
+  def build_duration
+    data[:duration] = Filter.check_duration_type(data['duration'], '-')
+  end
+
+  def amount_range
+    valid_is_it = true
+    start_amount = data['amount']['start'].to_f
+    finish_amount = data['amount']['finish']
+    if start_amount < 0
+      valid_is_it = false
+    elsif finish_amount.present?
+      valid_is_it = false if finish_amount.to_f < 0 || finish_amount.to_f < start_amount
+    end
+    errors[:base] << 'asd' unless valid_is_it
   end
 end

@@ -34,6 +34,7 @@ $(function() {
     // duration_start and duration_end initializing in the expenses/index.html.erb
     var start = moment(duration_start);
     var end = moment(duration_end);
+    var max_date = moment();
 
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
@@ -42,6 +43,7 @@ $(function() {
     $('#reportrange').daterangepicker({
         startDate: start,
         endDate: end,
+        maxDate: max_date,
         ranges: {
             'Today': [moment(), moment()],
             'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
