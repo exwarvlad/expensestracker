@@ -1,5 +1,6 @@
 class Expense < ApplicationRecord
   belongs_to :user
+  has_one :currency, as: :currencyable
   paginates_per 10
 
   MIN_LENGTH = 1
@@ -8,7 +9,7 @@ class Expense < ApplicationRecord
   validates :name, length: { in: MIN_LENGTH..MAX_LENGTH }
 
   # check current currency
-  def currency
+  def current_currency
     ActionController::Base.helpers.number_to_currency(
       amount, unit: type_amount, delimiter: ' ', format: '%n %u'
     )

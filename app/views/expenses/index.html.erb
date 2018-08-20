@@ -34,7 +34,7 @@
     <% @expenses.each_with_index do |expense, index| %>
         <tr id="<%= "col_#{ expense.id }" %>">
           <td><%= expense.name %></td>
-          <td><%= number_to_currency(expense.amount, unit: expense.type_amount, delimiter: '.', format: '%n %u') %></td>
+          <td><%= expense.current_currency %></td>
           <td><%= expense.expense_type %></td>
           <td><%= expense.created_at.strftime('%d.%m.%Y') %></td>
           <td><%= link_to 'Edit', edit_expense_path(expense), class: 'btn btn-warning', remote: true %></td>
@@ -70,6 +70,11 @@
           <%= text_field_tag 'data[amount][start]', round_amount(current_user.filter.data['amount']['start']), size: 5, placeholder: '0.00' %>
           <span> <= </span>
           <%= text_field_tag 'data[amount][finish]', round_amount(current_user.filter.data['amount']['finish']), size: 5, placeholder: '∞', class: 'placeholder_center' %>
+          <br>
+
+          <%= label_tag('currency[name]', 'Currency convert') %>
+          <% range = FiltersHelper::CurrencyNames.new(current_user.filter.currency.name) %>
+          <%= select_tag('currency[name]', options_for_select(range.names), prompt: range.current_name) %>
           <br>
 
           <%= button_to user_filter_path(current_user), method: :put, style: 'background: none; border: none;' do %>
