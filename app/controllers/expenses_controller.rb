@@ -85,8 +85,8 @@ class ExpensesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_params
-    # params[:expense][:currency_attributes][:name] = params[:expense][:currency_attributes][:name].to_i
-    params.require(:expense).permit(:name, :amount, :type_amount, :expense_type, currency_attributes: [:name, :currencyable_type, :currensyable_id])
+    params[:expense][:currency_attributes][:name] = params[:expense][:currency_attributes][:name].to_i
+    params.require(:expense).permit(:name, :amount, :type_amount, :expense_type, currency_attributes: [:name])
   end
 
   def set_total_sum

@@ -3,7 +3,7 @@ $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
 
 $('<%=j "#col_#{@expense.id}" %>').html(
   '<td><%=j @expense.name %></td> ' +
-  '<td><%=j @expense.currency %></td> ' +
+  '<td><%=j @expense.current_currency %></td> ' +
   '<td><%=j @expense.expense_type %></td> ' +
   '<td><%=j @expense.created_at.strftime('%d.%m.%Y') %></td> ' +
   '<td><%=j link_to 'Edit', edit_expense_path(@expense), remote: true, class: 'btn btn-warning' %></td> ' +

@@ -1,6 +1,8 @@
 class Expense < ApplicationRecord
   belongs_to :user
-  # has_one :currency, as: :currencyable
+  has_one :currency, as: :currencyable
+  accepts_nested_attributes_for :currency, update_only: true
+
   paginates_per 10
 
   MIN_LENGTH = 1
@@ -22,14 +24,4 @@ class Expense < ApplicationRecord
       Filter.check_expenses(user_id).pluck(:amount).sum, unit: '$', delimiter: ' ', format: '%n %u'
     )
   end
-
-  def build_currency(params)
-    self.associable = associable_type.constantize.new(params)
-  end
-
-  private
-
-  # def build_currency
-  #   self.currency = Currency.new(currency_type: self.class)
-  # end
 end

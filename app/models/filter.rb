@@ -2,7 +2,7 @@ class Filter < ApplicationRecord
   belongs_to :user
   has_one :currency, as: :currencyable
 
-  accepts_nested_attributes_for :currency
+  accepts_nested_attributes_for :currency, update_only: true
 
   JSON_SCHEMA = "#{Rails.root}/app/models/schemas/filter/data.json"
 
