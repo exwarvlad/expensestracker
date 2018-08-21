@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 2018_08_19_193142) do
   create_table "expenses", force: :cascade do |t|
     t.decimal "amount", default: "0.0", null: false
     t.string "name"
-    t.string "type_amount", default: "$", null: false
     t.string "expense_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -37,11 +36,9 @@ ActiveRecord::Schema.define(version: 2018_08_19_193142) do
 
   create_table "filters", force: :cascade do |t|
     t.bigint "user_id"
-    t.json "data"
+    t.json "data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "duration_start"
-    t.date "duration_end"
     t.index ["user_id"], name: "index_filters_on_user_id"
   end
 

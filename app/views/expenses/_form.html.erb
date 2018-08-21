@@ -39,9 +39,9 @@
               </div>
 
               <div class="form-group row">
-                <%= form.label :type_amount, class: 'col-xs-3 col-form-label mr-2' %>
+                <%= label_tag('expense[currency_attributes[name]]', 'Currency', class: 'col-xs-3 col-form-label mr-2') %>
                 <div class="col-xs-9">
-                  <%= form.text_field :type_amount, class: 'form-control clear_after_create' %>
+                  <%= select_tag('expense[currency_attributes[name]]', options_for_select(Currency.names), class: 'form-control clear_after_create') %>
                 </div>
               </div>
 

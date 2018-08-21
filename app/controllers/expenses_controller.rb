@@ -29,6 +29,7 @@ class ExpensesController < ApplicationController
   # POST /expenses
   # POST /expenses.json
   def create
+    # byebug
     @expense = Expense.new(expense_params)
     @expense.user_id = current_user.id
     respond_to do |format|
@@ -80,12 +81,12 @@ class ExpensesController < ApplicationController
   def set_filter
     filter = Filter.find { |f| f.user_id == current_user.id }.data['duration']
     @filter = Filter.check_duration_range(filter)
-    # byebug
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_params
-    params.require(:expense).permit(:name, :amount, :type_amount, :expense_type)
+    # params[:expense][:currency_attributes][:name] = params[:expense][:currency_attributes][:name].to_i
+    params.require(:expense).permit(:name, :amount, :type_amount, :expense_type, currency_attributes: [:name, :currencyable_type, :currensyable_id])
   end
 
   def set_total_sum

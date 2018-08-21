@@ -12,6 +12,6 @@ class User < ApplicationRecord
   private
 
   def build_default_filter
-    self.filter = Filter.new(filter: Filter::DEFAULT_PARAMS)
+    self.filter = Filter.new(data: Filter::DEFAULT_DATA_PARAMS)
   end
 end

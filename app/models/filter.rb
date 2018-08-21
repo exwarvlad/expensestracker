@@ -8,13 +8,19 @@ class Filter < ApplicationRecord
 
   DEFAULT_DATA_PARAMS = {
       rubric_names: '',
-      amount: { start: '', finish: '' }
+      amount: { start: '', finish: '' },
+      duration: 'last_30_day'
   }
 
+  before_create :build_currency
   before_update :build_duration
 
   validates :data, presence: true, json: { schema: JSON_SCHEMA }
   validate :amount_range
+
+  def build_currencyable(params)
+    self.currencyable = currencyable_type.constantize.new(params)
+  end
 
   def self.check_expenses(user_id)
     current_filter = User.find(user_id).filter
@@ -56,6 +62,10 @@ class Filter < ApplicationRecord
 
   def build_duration
     data[:duration] = Filter.check_duration_type(data['duration'], '-')
+  end
+
+  def build_currency
+    self.currency = Currency.new(currencyable_type: self.class)
   end
 
   def amount_range
