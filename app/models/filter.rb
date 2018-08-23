@@ -57,7 +57,8 @@ class Filter < ApplicationRecord
   end
 
   def self.duration_query(filter)
-    " AND created_at BETWEEN '#{filter.first.end_of_day}' AND '#{filter.last.end_of_day}'"
+    " AND created_at >= '#{filter.first}'
+      AND created_at <= '#{filter.last.end_of_day}'"
   end
 
   def build_duration

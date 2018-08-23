@@ -31,7 +31,7 @@
     </thead>
 
     <tbody id="search_list">
-    <% @expenses.each_with_index do |expense, index| %>
+    <% @expenses.page(params[:page]).each_with_index do |expense, index| %>
         <tr id="<%= "col_#{ expense.id }" %>">
           <td><%= expense.name %></td>
           <td><%= expense.current_currency %></td>
@@ -44,8 +44,9 @@
     <% end %>
     </tbody>
   </table>
-    <p id="total_sum">Total: <%= Expense.total_sum(current_user.id) %></p>
-    <%= paginate @expenses, theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
+    <% currency_convert = CurrencyConvert.new(@expenses, current_user.filter.currency.name) %>
+    <p id="total_sum">Total: <%= number_to_currency(currency_convert.transfer_transit, unit: currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %></p>
+    <%= paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
   </div>
 
   <div class="col-lg-4">

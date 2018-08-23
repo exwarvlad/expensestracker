@@ -88,6 +88,8 @@ GEM
       railties (>= 3.2, < 6.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    httparty (0.16.2)
+      multi_xml (>= 0.5.2)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
@@ -137,6 +139,7 @@ GEM
     minitest (5.11.3)
     msgpack (1.2.4)
     multi_json (1.13.1)
+    multi_xml (0.6.0)
     nio4r (2.3.1)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
@@ -244,6 +247,7 @@ DEPENDENCIES
   devise-i18n
   figaro
   font-awesome-rails
+  httparty
   jbuilder (~> 2.5)
   jquery-rails
   kaminari

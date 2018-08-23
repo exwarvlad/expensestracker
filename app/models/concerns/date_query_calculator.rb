@@ -2,11 +2,11 @@
 module DateQueryCalculator
   DATE_RANGES = {
       today: Date.today..Date.today.end_of_day,
-      yesterday: Date.yesterday..(Date.yesterday).end_of_day,
-      last_7_day: Date.today - 6.day..(Date.today - 1.day).end_of_day,
-      last_30_day: Date.today - 29.day..Date.today.end_of_day,
+      yesterday: Date.yesterday..(Date.yesterday),
+      last_7_day: Date.today - 6.day..(Date.today - 1.day),
+      last_30_day: Date.today - 29.day..Date.today,
       this_month: Date.today.beginning_of_month..Date.today.end_of_day,
-      last_month: Date.today.prev_month.beginning_of_month..Date.today.prev_month.end_of_month.end_of_day
+      last_month: Date.today.prev_month.beginning_of_month..Date.today.prev_month.end_of_month
   }
 
   def check_duration_type(duration, separator)

@@ -4,9 +4,9 @@
       <h2><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h2>
 
       <ul>
-      <% @expense.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @expense.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -41,7 +41,12 @@
               <div class="form-group row">
                 <%= label_tag('expense[currency_attributes[name]]', 'Currency', class: 'col-xs-3 col-form-label mr-2') %>
                 <div class="col-xs-9">
-                  <%= select_tag('expense[currency_attributes[name]]', options_for_select(Currency.names), class: 'form-control clear_after_create') %>
+                  <% if action_name == 'new' %>
+                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(Currency.names), class: 'form-control clear_after_create') %>
+                  <% elsif action_name == 'edit' %>
+                    <% range = FiltersHelper::CurrencyNames.new(@expense.currency.name) %>
+                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(range.names), prompt: @expense.currency.name, class: 'form-control clear_after_create') %>
+                <% end %>
                 </div>
               </div>
 

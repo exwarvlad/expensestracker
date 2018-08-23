@@ -1,12 +1,12 @@
 class ExpensesController < ApplicationController
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
-  before_action :set_total_sum, except: [:new, :edit]
+  before_action :set_filterable_expenses, except: [:new, :edit]
 
   # GET /expenses
   # GET /expenses.json
   def index
-    @expenses = Filter.check_expenses(current_user.id).page params[:page]
+    @expenses = Filter.check_expenses(current_user.id)
   end
 
   # GET /expenses/new
@@ -89,7 +89,7 @@ class ExpensesController < ApplicationController
     params.require(:expense).permit(:name, :amount, :type_amount, :expense_type, currency_attributes: [:name])
   end
 
-  def set_total_sum
-    @total_sum = Filter.check_expenses(current_user.id).pluck(:amount).sum
+  def set_filterable_expenses
+    @filterable_expenses = Filter.check_expenses(current_user.id)
   end
 end
