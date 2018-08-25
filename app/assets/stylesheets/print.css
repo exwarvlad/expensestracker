@@ -1,0 +1,12 @@
+@media print {
+    body {
+        visibility: hidden;
+    }
+
+    .print {
+        visibility: visible;
+    }
+    .not-for-print {
+        visibility: hidden;
+    }
+}

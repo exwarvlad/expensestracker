@@ -9,6 +9,7 @@ module FiltersHelper
     def initialize(current_name)
       @names = Currency.names.dup
       @names.delete(current_name)
+      @names = @names.map(&:first)
       @current_name = current_name
     end
   end

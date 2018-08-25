@@ -3,13 +3,11 @@ class CurrencyConvert
   RATE_INFO_URL = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
 
   def initialize(expenses, convert_currency)
-    @exchange_rates = goto_rates
     @total_bank = Hash.new(0)
     @convert_currency = convert_currency
     expenses.each_with_object(@total_bank).each { |e, h| h[e.currency.name] += e.amount }
   end
 
-  # without commission
   def transfer_transit
     total_amount = 0
 
@@ -17,6 +15,7 @@ class CurrencyConvert
       if currency == @convert_currency
         total_amount += currency_amount
       else
+        @exchange_rates ||= goto_rates
         total_amount += one_amount_to_convert(currency.upcase) * currency_amount
       end
     end

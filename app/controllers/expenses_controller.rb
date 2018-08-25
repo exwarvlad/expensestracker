@@ -1,12 +1,12 @@
 class ExpensesController < ApplicationController
+  before_action :set_expenses, except: [:new, :edit]
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
-  before_action :set_filterable_expenses, except: [:new, :edit]
+  # before_action :set_filterable_expenses, except: [:new, :edit]
 
   # GET /expenses
   # GET /expenses.json
   def index
-    @expenses = Filter.check_expenses(current_user.id)
   end
 
   # GET /expenses/new
@@ -85,11 +85,10 @@ class ExpensesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_params
-    params[:expense][:currency_attributes][:name] = params[:expense][:currency_attributes][:name].to_i
     params.require(:expense).permit(:name, :amount, :type_amount, :expense_type, currency_attributes: [:name])
   end
 
-  def set_filterable_expenses
-    @filterable_expenses = Filter.check_expenses(current_user.id)
+  def set_expenses
+    @expenses = Filter.check_expenses(current_user.id)
   end
 end

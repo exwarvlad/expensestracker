@@ -10,5 +10,5 @@ $('<%=j "#col_#{@expense.id}" %>').html(
   '<td><%=j link_to 'Destroy', expense_path(@expense), remote: true, method: :delete, class: 'btn btn-danger destroyer' %></td> '
 )
 
-
-$('#total_sum').html('<%= t(:total) %>: ' + '<%= Expense.total_sum(current_user.id) %>')
+<% currency_convert = CurrencyConvert.new(@expenses, current_user.filter.currency.name) %>
+$('#total_sum').html('Total: ' + '<%= number_to_currency(currency_convert.transfer_transit, unit: currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')

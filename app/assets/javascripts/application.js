@@ -58,3 +58,9 @@ $(function() {
 
 });
 
+
+$(document).ready(function() {
+    $('#exampleModal').on('shown', function() {
+        alert('I want this to appear after the modal has opened!');
+    });
+});

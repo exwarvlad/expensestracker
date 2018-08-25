@@ -18,7 +18,7 @@
 <div class="row">
 
   <div class="col-lg-8">
-  <table class="table table-striped">
+  <table class="table table-striped print">
     <thead class="thead-dark">
     <tr>
       <th><%= t(:expense_heading) %></th>
@@ -37,9 +37,9 @@
           <td><%= expense.current_currency %></td>
           <td><%= expense.expense_type %></td>
           <td><%= expense.created_at.strftime('%d.%m.%Y') %></td>
-          <td><%= link_to 'Edit', edit_expense_path(expense), class: 'btn btn-warning', remote: true %></td>
+          <td><%= link_to 'Edit', edit_expense_path(expense), class: 'btn btn-warning not-for-print', remote: true %></td>
           <td><%= link_to 'Destroy', expense_path(expense), method: :delete,
-                          class: 'btn btn-danger destroyer', remote: true %></td>
+                          class: 'btn btn-danger destroyer not-for-print', remote: true %></td>
         </tr>
     <% end %>
     </tbody>

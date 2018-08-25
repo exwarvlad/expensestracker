@@ -7,9 +7,19 @@ $(document).ready ->
     return
   return
 
+add_value = () ->
+  selected_option = 'select option:first'
+  $(selected_option).attr('value', $(selected_option).text())
+
+$(document).ready ->
+  add_value()
 
 console.log 42
 
 $(document).ready ->
   $('input[name="dates"]').daterangepicker()
-return
+
+$(document).ready ->
+  $('#myModal').on 'shown.bs.modal', ->
+    add_value()
+  return

@@ -1,6 +1,6 @@
 class FiltersController < ApplicationController
   before_action :set_filter, only: :update
-  before_action :serialize_currency_to_i, only: :update
+  # before_action :serialize_currency_to_i, only: :update
 
   def update
     if @filter.update(data: data_filter_params, currency_attributes: currency_filter_params)
