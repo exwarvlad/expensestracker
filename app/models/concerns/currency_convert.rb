@@ -30,7 +30,9 @@ class CurrencyConvert
   end
 
   def one_amount_to_convert(currency)
-    if @convert_currency == 'grn'
+    if @convert_currency == 'grn' && currency == 'BTC'
+      return btc_to_grn
+    elsif @convert_currency == 'grn'
       current_rate = @exchange_rates.find { |h| h[:ccy] == currency }
       return current_rate[:buy].to_f
     end
@@ -38,7 +40,7 @@ class CurrencyConvert
     @convert_currency_rate ||= check_currency_rate(@convert_currency.upcase)
 
     if currency == 'GRN'
-      1 / @convert_currency_rate
+      1.to_f / @convert_currency_rate
     else
       currency_rate = check_currency_rate(currency)
       currency_rate / @convert_currency_rate
@@ -47,12 +49,16 @@ class CurrencyConvert
 
   def check_currency_rate(currency)
     if currency == 'BTC'
-      btc_to_usd = @exchange_rates.find { |h| h[:ccy] == 'BTC' }
-      usd_to_grn = @exchange_rates.find { |h| h[:ccy] == 'USD' }
-      usd_to_grn[:buy].to_f * btc_to_usd[:buy].to_f
+      btc_to_grn
     else
       current_rate = @exchange_rates.find { |h| h[:ccy] == currency }
       current_rate[:buy].to_f
     end
+  end
+
+  def btc_to_grn
+    btc_to_usd = @exchange_rates.find { |h| h[:ccy] == 'BTC' }
+    usd_to_grn = @exchange_rates.find { |h| h[:ccy] == 'USD' }
+    usd_to_grn[:buy].to_f * btc_to_usd[:buy].to_f
   end
 end
