@@ -47,7 +47,6 @@ class CurrencyConvert
   end
 
   def new_amount_from_expense(amount, currency)
-    # byebug
     if currency == @convert_currency
       @total_amount += amount
     else

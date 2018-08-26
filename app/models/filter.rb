@@ -16,11 +16,6 @@ class Filter < ApplicationRecord
   before_update :build_duration
 
   validates :data, presence: true, json: { schema: JSON_SCHEMA }
-  validate :amount_range
-
-  def build_currencyable(params)
-    self.currencyable = currencyable_type.constantize.new(params)
-  end
 
   def self.check_expenses(user_id)
     current_filter = User.find(user_id).filter
@@ -67,17 +62,5 @@ class Filter < ApplicationRecord
 
   def build_currency
     self.currency = Currency.new(currencyable_type: self.class)
-  end
-
-  def amount_range
-    valid_is_it = true
-    start_amount = data['amount']['start'].to_f
-    finish_amount = data['amount']['finish']
-    if start_amount < 0
-      valid_is_it = false
-    elsif finish_amount.present?
-      valid_is_it = false if finish_amount.to_f < 0 || finish_amount.to_f < start_amount
-    end
-    errors[:base] << 'asd' unless valid_is_it
   end
 end
