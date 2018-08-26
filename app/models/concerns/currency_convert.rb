@@ -1,5 +1,5 @@
 class CurrencyConvert
-  attr_accessor :convert_currency
+  attr_reader :convert_currency
   RATE_INFO_URL = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
 
   def initialize(expenses, convert_currency)
@@ -23,7 +23,36 @@ class CurrencyConvert
   end
 
   def delete_amount_from_expense(amount, currency)
-    @total_amount -= one_amount_to_convert(currency.upcase) * amount
+    if currency == @convert_currency
+      @total_amount -= amount
+    else
+      @total_amount -= one_amount_to_convert(currency.upcase) * amount
+    end
+  end
+
+  def edit_amount_from_expense(expense_before_edit, expense_after_edit)
+    if expense_before_edit.currency.name == @convert_currency
+      before_amount = expense_before_edit.amount
+    else
+      before_amount = one_amount_to_convert(expense_before_edit.currency.name.upcase) * expense_before_edit.amount
+    end
+
+    if expense_after_edit[:currency] == @convert_currency
+      edit_amount = expense_after_edit[:amount]
+    else
+      edit_amount = one_amount_to_convert(expense_after_edit[:currency].upcase) * expense_after_edit[:amount]
+    end
+    residual = edit_amount - before_amount
+    @total_amount -= residual
+  end
+
+  def new_amount_from_expense(amount, currency)
+    # byebug
+    if currency == @convert_currency
+      @total_amount += amount
+    else
+      @total_amount += one_amount_to_convert(currency.upcase) * amount
+    end
   end
 
   private

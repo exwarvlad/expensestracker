@@ -37,7 +37,7 @@
           <td><%= expense.current_currency %></td>
           <td><%= expense.expense_type %></td>
           <td><%= expense.created_at.strftime('%d.%m.%Y') %></td>
-          <td><%= link_to 'Edit', edit_expense_path(expense), class: 'btn btn-warning not-for-print', remote: true %></td>
+          <td><%= link_to 'Edit', edit_expense_path(expense, exp: {amount: expense.amount, currency: expense.currency}), class: 'btn btn-warning not-for-print', remote: true %></td>
           <td><%= link_to 'Destroy', expense_path(expense), method: :delete,
                           class: 'btn btn-danger destroyer not-for-print', remote: true %></td>
         </tr>

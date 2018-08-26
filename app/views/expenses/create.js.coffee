@@ -13,8 +13,7 @@ $('#search_list tr:first').before(
   '</tr>\''
 )
 
-<% currency_convert = CurrencyConvert.new(@expenses, current_user.filter.currency.name) %>
-$('#total_sum').html('Total: ' + '<%= number_to_currency(currency_convert.transfer_transit, unit: currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')
+$('#total_sum').html('Total: ' + '<%= number_to_currency($currency_convert.new_amount_from_expense(@expense.amount, @expense.currency.name), unit: $currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')
 # clearing a yellow background of the input for a chrome
 # https://stackoverflow.com/questions/29120333/remove-the-yellow-background-on-input-on-autofill#answer-29120510
 #$('.clear_after_create').css('-webkit-box-shadow', '0 0 0px 1000px white inset')

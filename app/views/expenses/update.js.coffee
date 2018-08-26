@@ -1,4 +1,5 @@
 <%# @currency_convert.delete_amount() %>
+<%# byebug %>
 
 $('#exampleModal').modal('toggle')
 $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
@@ -12,5 +13,4 @@ $('<%=j "#col_#{@expense.id}" %>').html(
   '<td><%=j link_to 'Destroy', expense_path(@expense), remote: true, method: :delete, class: 'btn btn-danger destroyer' %></td> '
 )
 
-<% currency_convert = CurrencyConvert.new(@expenses, current_user.filter.currency.name) %>
-$('#total_sum').html('Total: ' + '<%= number_to_currency(currency_convert.transfer_transit, unit: currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')
+$('#total_sum').html('Total: ' + '<%= number_to_currency($currency_convert.edit_amount_from_expense(@expense, @before_expense), unit: $currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')
