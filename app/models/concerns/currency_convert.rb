@@ -9,17 +9,21 @@ class CurrencyConvert
   end
 
   def transfer_transit
-    total_amount = 0
+    @total_amount = 0
 
     @total_bank.each do |currency, currency_amount|
       if currency == @convert_currency
-        total_amount += currency_amount
+        @total_amount += currency_amount
       else
         @exchange_rates ||= goto_rates
-        total_amount += one_amount_to_convert(currency.upcase) * currency_amount
+        @total_amount += one_amount_to_convert(currency.upcase) * currency_amount
       end
     end
-    total_amount
+    @total_amount
+  end
+
+  def delete_amount_from_expense(amount, currency)
+    @total_amount -= one_amount_to_convert(currency.upcase) * amount
   end
 
   private

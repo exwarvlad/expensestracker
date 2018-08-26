@@ -1,5 +1,6 @@
 class ExpensesController < ApplicationController
   before_action :set_expenses, except: [:new, :edit]
+  before_action :set_currency_convert, only: :index
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
   # before_action :set_filterable_expenses, except: [:new, :edit]
@@ -90,5 +91,9 @@ class ExpensesController < ApplicationController
 
   def set_expenses
     @expenses = Filter.check_expenses(current_user.id)
+  end
+
+  def set_currency_convert
+    $currency_convert = CurrencyConvert.new(@expenses, current_user.filter.currency.name)
   end
 end

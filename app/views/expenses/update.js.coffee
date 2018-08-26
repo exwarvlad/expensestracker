@@ -1,3 +1,5 @@
+<%# @currency_convert.delete_amount() %>
+
 $('#exampleModal').modal('toggle')
 $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
 
