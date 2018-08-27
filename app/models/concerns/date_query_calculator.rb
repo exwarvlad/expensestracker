@@ -14,8 +14,6 @@ module DateQueryCalculator
     current_date_range = Date.parse(ranges.first)..Date.parse(ranges.last).end_of_day
     dd = DATE_RANGES.find { |k, v| v == current_date_range }
     dd.present? ? dd.first : {custom_range: current_date_range}
-  rescue
-    false
   end
 
   def check_duration_range(duration)
@@ -26,5 +24,9 @@ module DateQueryCalculator
       duration = duration.to_sym
       DATE_RANGES.find { |k, v| k == duration }.last
     end
+  end
+
+  def date_to_s(date)
+    "#{date.first.strftime('%B %d, %Y')} - #{date.last.strftime('%B %d, %Y')}"
   end
 end

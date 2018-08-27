@@ -1,13 +1,13 @@
 class ExpensesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_expenses, except: [:new, :edit]
+  before_action :set_currency_convert, only: :index
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
 
   # GET /expenses
   # GET /expenses.json
   def index
-    current_user.currency_convert.update_bank(@expenses, current_user.filter.currency.name)
-    current_user.currency_convert.transfer_transit
   end
 
   # GET /expenses/new
@@ -91,5 +91,10 @@ class ExpensesController < ApplicationController
 
   def set_expenses
     @expenses = Filter.check_expenses(current_user.id)
+  end
+
+  def set_currency_convert
+    current_user.currency_convert.update_bank(@expenses, current_user.filter.currency.name)
+    current_user.currency_convert.transfer_transit
   end
 end

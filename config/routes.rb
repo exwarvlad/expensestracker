@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :expenses, except: :show
 
   resources :users do
-    resource :filter, only: :update
+    resource :filter, only: [:update, :reset] do
+      put :reset
+    end
   end
 end

@@ -1,15 +1,18 @@
 class Filter < ApplicationRecord
+  extend ActiveSupport::Concern::DateQueryCalculator
   belongs_to :user
   has_one :currency, as: :currencyable
-
   accepts_nested_attributes_for :currency, update_only: true
 
   JSON_SCHEMA = "#{Rails.root}/app/models/schemas/filter/data.json"
 
-  DEFAULT_DATA_PARAMS = {
-      rubric_names: '',
-      amount: { start: '', finish: '' },
-      duration: 'last_30_day'
+  DEFAULT_PARAMS = {
+      data: {
+          rubric_names: '',
+          amount: { start: 0, finish: '' },
+          duration: date_to_s(Date.today - 29.day..Date.today),
+      },
+      currency_attributes: { name: 0 }
   }
 
   before_create :build_currency
@@ -28,8 +31,6 @@ class Filter < ApplicationRecord
   end
 
   private
-
-  extend ActiveSupport::Concern::DateQueryCalculator
 
   def self.rubrics_query(current_user_filters)
     if current_user_filters['rubric_names'].present?

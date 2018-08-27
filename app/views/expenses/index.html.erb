@@ -44,51 +44,9 @@
     <% end %>
     </tbody>
   </table>
-    <%# currency_convert = CurrencyConvert.new(@expenses, current_user.filter.currency.name) %>
     <p id="total_sum">Total: <%= number_to_currency(current_user.currency_convert.total_amount, unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %></p>
     <%= paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
   </div>
 
-  <div class="col-lg-4">
-    <div class="well sidebar-nav">
-      <h3><%= t(:expenses_filters) %></h3>
-      <div class="link-tags">
-        <%= form_for(current_user, url: user_filter_path(current_user), method: :put) do |f| %>
-          <%= hidden_field_tag 'data[duration]' %>
-
-          <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-            <i class="fa fa-calendar"></i>&nbsp;
-            <span id="filter_date_duration"></span> <i class="fa fa-caret-down"></i>
-          </div>
-          <br>
-
-          <%= label_tag 'data[rubric_names]', 'Rubrics' %>
-          <%= text_field_tag '[data[rubric_names]]', current_user.filter.data['rubric_name'], placeholder: 'Rubric1,Rubric2', value: current_user.filter.data['rubric_names'] %>
-          <br><br>
-
-          <%= label_tag 'data[amount][start]', 'Amount range' %>
-          <span> >= </span>
-          <%= text_field_tag 'data[amount][start]', round_amount(current_user.filter.data['amount']['start']), size: 5, placeholder: '0.00' %>
-          <span> <= </span>
-          <%= text_field_tag 'data[amount][finish]', round_amount(current_user.filter.data['amount']['finish']), size: 5, placeholder: '∞', class: 'placeholder_center' %>
-          <br>
-
-          <%= label_tag('currency[name]', 'Currency convert') %>
-          <% range = FiltersHelper::CurrencyNames.new(current_user.filter.currency.name) %>
-          <%= select_tag('currency[name]', options_for_select(range.names), prompt: range.current_name) %>
-          <br>
-
-          <%= button_to user_filter_path(current_user), method: :put, style: 'background: none; border: none;' do %>
-            <i class="fa fa-check" aria-hidden="true" style="color: #4cae4c">Apply</i>
-          <% end %>
-          <%= link_to 'Apply', nil do %>
-            <i class="fa fa-refresh" aria-hidden="true" style="color: #d43f3a; float: right;">&nbsp;Reset</i>
-          <% end %>
-        <% end %>
-        <br>
-
-      </div>
-    </div><!--/.well -->
-  </div><!--/span-->
+  <%= render 'filters/filter' %>
 </div>
-
