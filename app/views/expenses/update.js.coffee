@@ -10,4 +10,4 @@ $('<%=j "#col_#{@expense.id}" %>').html(
   '<td><%=j link_to 'Destroy', expense_path(@expense), remote: true, method: :delete, class: 'btn btn-danger destroyer' %></td> '
 )
 
-$('#total_sum').html('Total: ' + '<%= number_to_currency($currency_convert.edit_amount_from_expense(@expense, @before_expense), unit: $currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')
+$('#total_sum').html('Total: ' + '<%= number_to_currency(current_user.currency_convert.edit_amount_from_expense(@expense, @before_expense), unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')

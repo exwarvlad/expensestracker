@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_19_193142) do
+ActiveRecord::Schema.define(version: 2018_08_26_203753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 2018_08_19_193142) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["currencyable_type", "currencyable_id"], name: "index_currencies_on_currencyable_type_and_currencyable_id"
+  end
+
+  create_table "currency_converts", force: :cascade do |t|
+    t.json "total_bank"
+    t.json "exchange_rates"
+    t.string "convert_currency", null: false
+    t.decimal "total_amount"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_currency_converts_on_user_id"
   end
 
   create_table "expenses", force: :cascade do |t|

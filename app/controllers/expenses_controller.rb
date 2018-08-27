@@ -1,13 +1,13 @@
 class ExpensesController < ApplicationController
   before_action :set_expenses, except: [:new, :edit]
-  before_action :set_currency_convert, only: :index
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
-  # before_action :set_filterable_expenses, except: [:new, :edit]
 
   # GET /expenses
   # GET /expenses.json
   def index
+    current_user.currency_convert.update_bank(@expenses, current_user.filter.currency.name)
+    current_user.currency_convert.transfer_transit
   end
 
   # GET /expenses/new
@@ -30,7 +30,6 @@ class ExpensesController < ApplicationController
   # POST /expenses
   # POST /expenses.json
   def create
-    # byebug
     @expense = Expense.new(expense_params)
     @expense.user_id = current_user.id
     respond_to do |format|
@@ -92,9 +91,5 @@ class ExpensesController < ApplicationController
 
   def set_expenses
     @expenses = Filter.check_expenses(current_user.id)
-  end
-
-  def set_currency_convert
-    $currency_convert = CurrencyConvert.new(@expenses, current_user.filter.currency.name)
   end
 end

@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :expenses
   has_one :filter
-
+  has_one :currency_convert
   before_create :build_default_filter
 
   private
