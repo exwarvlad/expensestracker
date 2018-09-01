@@ -1,11 +1,18 @@
 <script type="text/javascript" charset="utf-8">
-  // assets/javascripts/application.js
+  // assets/javascripts/application.js.erb
   var duration_start = "<%= @filter.first %>";
   var duration_end = "<%= @filter.last.to_date %>";
+
+  $(document).ready(function() {
+      window.onbeforeprint = function(){
+          $('#print').html("<%= escape_javascript(render 'expenses/for_print') %>")
+      }
+  });
 </script>
 
 <div class="notice"></div>
 <div id="myModal"></div>
+<div class="print" id="print"></div>
 
   <%= link_to 'New Expense', new_expense_path, class: 'btn btn-success', remote: true %>
   <br><br>
@@ -18,7 +25,7 @@
 <div class="row">
 
   <div class="col-lg-8">
-  <table class="table table-striped print">
+  <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
       <th><%= t(:expense_heading) %></th>
@@ -26,20 +33,27 @@
       <th><%= t(:expense_type) %></th>
       <th><%= t(:created_at) %></th>
       <th></th>
-      <th></th>
+      <th>
+        <%= link_to 'send' do %>
+            <i class="fa fa-envelope" aria-hidden="true" style="padding-bottom: 0px; float: right; font-size: 1.2em; padding-left: 0.6em; color: #333;"></i>
+      <% end %>
+        <%= link_to 'print', onclick: 'window.print();return false;' do %>
+          <i class="fa fa-print" aria-hidden="true" style="float: right; padding-bottom: 0px; font-size: 1.2em; color: #333;"></i>
+        <% end %>
+      </th>
     </tr>
     </thead>
 
     <tbody id="search_list">
-    <% @expenses.page(params[:page]).each_with_index do |expense, index| %>
+    <% @expenses.page(params[:page]).each do |expense| %>
         <tr id="<%= "col_#{ expense.id }" %>">
           <td><%= expense.name %></td>
           <td><%= expense.current_currency %></td>
           <td><%= expense.expense_type %></td>
           <td><%= expense.created_at.strftime('%d.%m.%Y') %></td>
-          <td><%= link_to 'Edit', edit_expense_path(expense, exp: {amount: expense.amount, currency: expense.currency}), class: 'btn btn-warning not-for-print', remote: true %></td>
-          <td><%= link_to 'Destroy', expense_path(expense), method: :delete,
-                          class: 'btn btn-danger destroyer not-for-print', remote: true %></td>
+          <td class="not-for-print"><%= link_to 'Edit', edit_expense_path(expense, exp: {amount: expense.amount, currency: expense.currency}), class: 'btn btn-warning', remote: true %></td>
+          <td class="not-for-print"><%= link_to 'Destroy', expense_path(expense), method: :delete,
+                          class: 'btn btn-danger destroyer', remote: true %></td>
         </tr>
     <% end %>
     </tbody>

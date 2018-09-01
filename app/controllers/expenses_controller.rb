@@ -90,7 +90,7 @@ class ExpensesController < ApplicationController
   end
 
   def set_expenses
-    @expenses = Filter.check_expenses(current_user.id)
+    @expenses = Filter.order('created_at ASC').check_expenses(current_user.id)
   end
 
   def set_currency_convert

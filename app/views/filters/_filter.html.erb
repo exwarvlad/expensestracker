@@ -1,7 +1,7 @@
 <div class="col-lg-4">
   <div class="well sidebar-nav" style="box-sizing: border-box">
     <h3><%= t(:expenses_filters) %></h3>
-    <div class="link-tags" style="padding: 0;">
+    <div class="link-tags">
       <%= form_for(current_user, url: user_filter_path(current_user), method: :put) do |f| %>
         <%= hidden_field_tag 'data[duration]' %>
 
@@ -20,7 +20,7 @@
         <%= text_field_tag 'data[amount][start]', round_amount(current_user.filter.data['amount']['start']), size: 5, placeholder: '0.00' %>
         <span> <= </span>
         <%= text_field_tag 'data[amount][finish]', round_amount(current_user.filter.data['amount']['finish']), size: 5, placeholder: '∞', class: 'placeholder_center' %>
-        <br>
+        <br><br>
 
         <%= label_tag('currency[name]', 'Currency convert') %>
         <% range = FiltersHelper::CurrencyNames.new(current_user.filter.currency.name) %>
@@ -28,17 +28,13 @@
         <br>
 
         <div class="row">
-          <div class="col-sm-10">
             <%= button_to user_filter_path(current_user), method: :put, class: 'btn-alignment', style: 'background: none; border: none;' do %>
               <i class="fa fa-check" aria-hidden="true" style="color: #4cae4c">Apply</i>
             <% end %>
-          </div>
 
-          <div class="col-sm-2">
             <%= link_to reset_user_filter_path(current_user), method: :put do %>
               <i class="fa fa-refresh link-alignment" aria-hidden="true" style="color: #d43f3a; float: right;">&nbsp;Reset</i>
             <% end %>
-          </div>
         </div>
 
       <% end %>

@@ -1,0 +1,32 @@
+<% pages_inds = (1..@expenses.size).to_a.select { |id| id % 37 == 0 } %>
+<% last_id = @expenses.size %>
+
+<table class="table table-striped d-print-table">
+  <thead class="thead-dark">
+  <tr>
+    <th><%= t(:expense_heading) %></th>
+    <th><%= t(:expense_amount) %></th>
+    <th><%= t(:expense_type) %></th>
+    <th><%= t(:created_at) %></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody id="search_list">
+  <% @expenses.each_with_index do |expense, index| %>
+    <tr>
+      <td><%= expense.name %></td>
+      <td><%= expense.current_currency %></td>
+      <td><%= expense.expense_type %></td>
+      <td><%= expense.created_at.strftime('%d.%m.%Y') %></td>
+    </tr>
+
+      <% if pages_inds.include?(index) %>
+          <%= show_amount_page(@expenses) %>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+<p id="total_sum">Total: <%= number_to_currency(current_user.currency_convert.total_amount, unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>

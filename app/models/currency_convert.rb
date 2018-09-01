@@ -65,6 +65,22 @@ class CurrencyConvert < ApplicationRecord
     save
   end
 
+  def convert_with_pick(expenses)
+    current_bank = Hash.new(0)
+    expenses.each_with_object(current_bank).each { |e, h| h[e.currency.name] += e.amount }
+
+    total_amount = 0
+
+    current_bank.each do |currency, currency_amount|
+      if currency == self.convert_currency
+        total_amount += currency_amount.to_f
+      else
+        total_amount += one_amount_to_convert(currency.upcase) * currency_amount.to_f
+      end
+    end
+    total_amount
+  end
+
   private
 
   def goto_rates

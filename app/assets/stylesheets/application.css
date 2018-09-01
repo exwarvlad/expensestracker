@@ -16,3 +16,28 @@
  *= require font-awesome
  *= stub print
  */
+
+.print {
+    display: none;
+}
+
+@media print {
+    body {
+        visibility: hidden;
+    }
+
+    .print {
+        display: block;
+        visibility: visible;
+    }
+
+    /*.amount_from_page {*/
+        /*display: inline;*/
+        /*border: 0 !important;*/
+    /*}*/
+}
+
+/*.amount_from_page {*/
+    /*display: inline;*/
+    /*border: 0 !important;*/
+/*}*/
