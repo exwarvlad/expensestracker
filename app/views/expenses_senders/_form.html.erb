@@ -12,10 +12,10 @@
   <% end %>
 
   <div class="modal fade" id="senderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="max-width: 332px;">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Expense <%= action_name %></h5>
+          <h5 class="modal-title" id="exampleModalLabel">Expenses mailer</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -23,9 +23,12 @@
         <div class="modal-body">
           <form action="edit.js.coffee">
             <div class="form-group row">
-              <%= f.label :email, 'email', class: 'col-xs-3 col-form-label mr-4', style: 'width: 10%' %>
-              <div class="col-xs-9">
-                <%= f.text_field :email, value: current_user.expenses_sender.email, class: 'form-control', style: 'width: 60%' %>
+              <%= f.label :email, 'email', class: 'col-xs-3 col-form-label mr-2' %>
+              <div class="col-md-9">
+                <%= f.text_field :email, value: current_user.expenses_sender.email, class: 'form-control' %>
+              </div>
+              <div class="col-xs-3" style="padding-top: 15px; padding-right: 15px;">
+                <%= recaptcha_tags %>
               </div>
             </div>
           </form>

@@ -37,12 +37,11 @@ gem 'bootstrap4-kaminari-views'
 gem 'activerecord_json_validator'
 gem 'httparty'
 gem 'awesome_print'
-
 gem 'datejs-rails'
 gem 'bootstrap-daterangepicker-rails'
 gem 'font-awesome-rails'
-
 gem 'sidekiq'
+gem 'recaptcha'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
