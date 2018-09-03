@@ -42,6 +42,8 @@ gem 'datejs-rails'
 gem 'bootstrap-daterangepicker-rails'
 gem 'font-awesome-rails'
 
+gem 'sidekiq'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

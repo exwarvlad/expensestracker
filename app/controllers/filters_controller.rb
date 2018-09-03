@@ -6,9 +6,9 @@ class FiltersController < ApplicationController
     if @filter.update(data: data_filter_params, currency_attributes: currency_filter_params)
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Filters successfully updated.' }
-      else
-        format.html { redirect_to root_path, alert: 'Filters have unless values' }
       end
+    else
+      format.html { redirect_to root_path, alert: 'Filters have unless values' }
     end
   end
 
@@ -16,9 +16,9 @@ class FiltersController < ApplicationController
     if @filter.update(Filter::DEFAULT_PARAMS)
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Filters successfully reset.' }
-      else
-        format.html { redirect_to root_path, alert: 'Filters have unless values' }
       end
+    else
+      format.html { redirect_to root_path, alert: 'Filters have unless values' }
     end
   end
 

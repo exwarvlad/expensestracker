@@ -24,7 +24,7 @@ class Filter < ApplicationRecord
     current_filter = User.find(user_id).filter
     data_filter = current_filter.data
     default_query = "user_id = #{user_id}"
-    Expense.where("#{default_query}
+    Expense.order(created_at: :desc).where("#{default_query}
                    #{rubrics_query(data_filter)}
                    #{amount_range_query(data_filter)}
                    #{duration_query(Filter.check_duration_range(data_filter['duration']))}")

@@ -5,10 +5,12 @@
 
   $(document).ready(function() {
       window.onbeforeprint = function(){
-          $('#print').html("<%= escape_javascript(render 'expenses/for_print') %>")
+          $('#print').html("<%= j(render partial: 'expenses/for_print', locals: { expenses: @expenses }) %>")
       }
   });
 </script>
+
+<div id="results"></div>
 
 <div class="notice"></div>
 <div id="myModal"></div>
@@ -34,7 +36,7 @@
       <th><%= t(:created_at) %></th>
       <th></th>
       <th>
-        <%= link_to 'send' do %>
+        <%= link_to edit_user_expenses_sender_path(current_user, expenses: @expenses.ids), remote: true do %>
             <i class="fa fa-envelope" aria-hidden="true" style="padding-bottom: 0px; float: right; font-size: 1.2em; padding-left: 0.6em; color: #333;"></i>
       <% end %>
         <%= link_to 'print', onclick: 'window.print();return false;' do %>

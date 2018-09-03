@@ -1,5 +1,5 @@
 $('#exampleModal').modal('toggle')
-$('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
+$('.notice').html("<%=j render 'layouts/messages' %>")
 
 $('<%=j "#col_#{@expense.id}" %>').html(
   '<td><%=j @expense.name %></td> ' +
