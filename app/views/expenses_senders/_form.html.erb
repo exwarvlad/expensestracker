@@ -21,8 +21,14 @@
           </button>
         </div>
         <div class="modal-body">
-          <%= f.label :email, 'email' %>
-          <%= f.text_field :email, value: current_user.expenses_sender.email %>
+          <form action="edit.js.coffee">
+            <div class="form-group row">
+              <%= f.label :email, 'email', class: 'col-xs-3 col-form-label mr-4', style: 'width: 10%' %>
+              <div class="col-xs-9">
+                <%= f.text_field :email, value: current_user.expenses_sender.email, class: 'form-control', style: 'width: 60%' %>
+              </div>
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
           <%= hidden_field_tag 'expenses', @expenses_ids %>
