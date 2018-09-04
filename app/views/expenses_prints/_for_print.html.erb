@@ -21,3 +21,5 @@
   <% end %>
   </tbody>
 </table>
+
+<p>Total amount: <%= number_to_currency(total_amount, unit: convert_currency, delimiter: ' ', format: '%n %u') %></p>

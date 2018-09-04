@@ -1,7 +1,7 @@
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_expenses, except: [:new, :edit]
-  # before_action :set_currency_convert, only: :index
+  before_action :set_currency_convert, only: :index
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
 
