@@ -3,6 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
 
+  $('#click_me').click ->
+    $('#click_me').attr 'id', 'not_click_me'
+
   window.onbeforeprint = (event) ->
     $('#click_me').click()
     $('#click_me').attr 'id', 'not_click_me'
