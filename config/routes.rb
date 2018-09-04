@@ -11,5 +11,8 @@ Rails.application.routes.draw do
       put :reset
     end
     resource :expenses_sender, only: [:update, :edit]
+    resource :expenses_print, only: [:print] do
+      get :print
+    end
   end
 end
