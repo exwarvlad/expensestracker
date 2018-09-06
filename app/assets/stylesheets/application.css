@@ -30,22 +30,10 @@
         display: block;
         visibility: visible;
     }
-
-    /*.amount_from_page {*/
-        /*display: inline;*/
-        /*border: 0 !important;*/
-    /*}*/
 }
-
-/*.amount_from_page {*/
-    /*display: inline;*/
-    /*border: 0 !important;*/
-/*}*/
-
 
 .navbar {
     background-color: #292b2c!important;
-    /*margin-bottom: 35px;*/
 }
 
 .navbar-brand {
@@ -62,6 +50,18 @@
 
 .reset:hover {
     color: #ac2925 !important;
+}
+
+.printer {
+    padding-bottom: 0;
+    float: right;
+    font-size: 1.2em !important;
+    padding-left: 0.6em;
+    color: #333;
+}
+
+.printer:hover {
+    color: #111 !important;
 }
 
 html {

@@ -32,10 +32,10 @@
       <th></th>
       <th>
         <%= link_to edit_user_expenses_sender_path(current_user, expenses: @expenses.ids), remote: true do %>
-            <i class="fa fa-envelope" aria-hidden="true" style="padding-bottom: 0px; float: right; font-size: 1.2em; padding-left: 0.6em; color: #333;"></i>
+            <i class="fa fa-envelope printer" aria-hidden="true"></i>
       <% end %>
         <%= link_to print_user_expenses_print_path(current_user), id: 'click_me', remote: true do %>
-          <i class="fa fa-print" aria-hidden="true" style="float: right; padding-bottom: 0px; font-size: 1.2em; color: #333;"></i>
+          <i class="fa fa-print printer" aria-hidden="true"></i>
         <% end %>
       </th>
     </tr>
@@ -48,14 +48,22 @@
           <td><%= expense.current_currency %></td>
           <td><%= expense.expense_type %></td>
           <td><%= expense.created_at.strftime('%d.%m.%Y') %></td>
-          <td class="not-for-print"><%= link_to 'Edit', edit_expense_path(expense, exp: {amount: expense.amount, currency: expense.currency}), class: 'btn btn-warning', remote: true %></td>
+          <td class="not-for-print"><%= link_to 'Edit', edit_expense_path(expense, exp: {amount: expense.amount,
+                                                                                         currency: expense.currency}),
+                                                                                         class: 'btn btn-warning',
+                                                                                         remote: true %>
+          </td>
           <td class="not-for-print"><%= link_to 'Destroy', expense_path(expense), method: :delete,
                           class: 'btn btn-danger destroyer', remote: true %></td>
         </tr>
     <% end %>
     </tbody>
   </table>
-    <p id="total_sum">Total: <%= number_to_currency(current_user.currency_convert.total_amount, unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %></p>
+    <p id="total_sum">Total: <%= number_to_currency(current_user.currency_convert.total_amount,
+                                                    unit: current_user.currency_convert.convert_currency,
+                                                    delimiter: ' ', format: '%n %u'
+                                 ) %>
+    </p>
     <%= paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
   </div>
 
