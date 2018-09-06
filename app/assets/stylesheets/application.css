@@ -41,3 +41,56 @@
     /*display: inline;*/
     /*border: 0 !important;*/
 /*}*/
+
+
+.navbar {
+    background-color: #292b2c!important;
+    /*margin-bottom: 35px;*/
+}
+
+.navbar-brand {
+    color: #fff !important;
+}
+
+.nav-link:hover {
+    color: rgba(255,255,255,.5) !important;
+}
+
+.apply:hover {
+    color: #398439 !important;
+}
+
+.reset:hover {
+    color: #ac2925 !important;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+#search {
+    width: 250px;
+}
+
+#search_label {
+    /* Other styling.. */
+    text-align: right;
+    clear: both;
+    float:left;
+    margin-right:15px;
+    margin-top: 5px;
+}

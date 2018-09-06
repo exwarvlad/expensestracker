@@ -13,8 +13,9 @@
   <%= link_to 'New Expense', new_expense_path, class: 'btn btn-success', remote: true %>
   <br><br>
   <%= form_tag('', method: :get, remote: true) do %>
-    <span>Expenses</span>
-    <%= text_field_tag('', '', placeholder: t(:expenses_search), id: 'search', maxlength: Expense::MAX_LENGTH) %>
+    <label for="search" id="search_label">Expenses</label>
+    <%= text_field_tag('', '', placeholder: t(:expenses_search), class: 'form-control mr-sm-2', id: 'search',
+                       maxlength: Expense::MAX_LENGTH) %>
     <br>
 <% end %>
 
