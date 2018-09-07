@@ -94,3 +94,16 @@ body {
     margin-right:15px;
     margin-top: 5px;
 }
+
+.modal-mailer {
+    width: 332px;
+}
+
+.recaptcha {
+    padding-top: 15px;
+}
+/*@media only screen and (max-width: 600px) {*/
+    /*.modal-mailer {*/
+        /*min-width: 335px;*/
+    /*}*/
+/*}*/

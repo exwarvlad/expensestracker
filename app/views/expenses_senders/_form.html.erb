@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="modal fade" id="senderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document" style="max-width: 332px;">
+    <div class="modal-dialog modal-mailer" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Expenses mailer</h5>
@@ -27,7 +27,7 @@
               <div class="col-md-9">
                 <%= f.text_field :email, value: current_user.expenses_sender.email, class: 'form-control' %>
               </div>
-              <div class="col-xs-3" style="padding-top: 15px; padding-right: 15px;">
+              <div class="col-xs-3 recaptcha">
                 <%= recaptcha_tags %>
               </div>
             </div>

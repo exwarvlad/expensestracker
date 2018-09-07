@@ -61,8 +61,7 @@
   </table>
     <p id="total_sum">Total: <%= number_to_currency(current_user.currency_convert.total_amount,
                                                     unit: current_user.currency_convert.convert_currency,
-                                                    delimiter: ' ', format: '%n %u'
-                                 ) %>
+                                                    delimiter: ' ', format: '%n %u') %>
     </p>
     <%= paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
   </div>
