@@ -79,6 +79,9 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    devise-async (1.0.0)
+      activejob (>= 5.0)
+      devise (>= 4.0)
     devise-i18n (1.6.2)
       devise (>= 4.4)
     erubi (1.7.1)
@@ -257,6 +260,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   datejs-rails
   devise
+  devise-async
   devise-i18n
   figaro
   font-awesome-rails

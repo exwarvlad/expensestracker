@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resource :filter, only: [:update, :reset] do
       put :reset
     end
+
     resource :expenses_sender, only: [:update, :edit]
     resource :expenses_print, only: [:print] do
       get :print

@@ -41,7 +41,6 @@
 }
 
 .navbar-nav li a {
-    color: white !important;
     color: rgba(225,225,225,.6) !important;
 }
 
@@ -121,4 +120,12 @@ body {
     padding: 1rem;
     background-color: #efefef;
     min-width: 725px;
+}
+
+.devise {
+    width: 228px;
+}
+
+.devise-buffer-top {
+    padding-top: 7px;
 }
