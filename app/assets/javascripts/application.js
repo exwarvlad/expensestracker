@@ -70,4 +70,15 @@ function resizeHeaderOnScroll() {
     }
 }
 
-window.addEventListener('scroll', resizeHeaderOnScroll);
+// window.addEventListener('scroll', resizeHeaderOnScroll);
+
+$(document).ready(function() {
+    $('#data_amount_start').focusin(function() {
+        $("label[for='data_amount_start']").attr('for', 'data_amount_finish')
+    });
+
+    $('#data_amount_finish').focusout(function () {
+        $("label[for='data_amount_finish']").attr('for', 'data_amount_start')
+    })
+});
+

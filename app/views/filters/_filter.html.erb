@@ -17,9 +17,9 @@
 
             <%= label_tag 'data[amount][start]', 'Amount range' %>
             <span> >= </span>
-            <%= text_field_tag 'data[amount][start]', round_amount(current_user.filter.data['amount']['start']), class: 'form-control amount-range', size: 5, placeholder: '0.00' %>
+            <%= text_field_tag 'data[amount][start]', round_amount(current_user.filter.data['amount']['start']), class: 'form-control amount-range', placeholder: '0.00' %>
             <span> <= </span>
-            <%= text_field_tag 'data[amount][finish]', round_amount(current_user.filter.data['amount']['finish']), size: 5, placeholder: '∞', class: 'form-control amount-range placeholder_center' %>
+            <%= text_field_tag 'data[amount][finish]', round_amount(current_user.filter.data['amount']['finish']), placeholder: '∞', class: 'form-control amount-range placeholder_center' %>
 
         <br><br>
 

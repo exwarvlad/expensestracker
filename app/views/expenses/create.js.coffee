@@ -8,8 +8,8 @@ $('#search_list tr:first').before(
     '<td><%=j @expense.current_currency %></td> ' +
     '<td><%=j @expense.expense_type %></td> ' +
     '<td><%=j @expense.created_at.strftime('%d.%m.%Y') %></td> ' +
-    '<td class="not-for-print"<%=j link_to 'Edit', edit_expense_path(@expense), remote: true, class: 'btn btn-warning' %></td> ' +
-    '<td class="not-for-print"<%=j link_to 'Destroy', expense_path(@expense), remote: true, method: :delete, class: 'btn btn-danger destroyer' %></td> ' +
+    '<td class="not-for-print"><%=j link_to 'Edit', edit_expense_path(@expense), remote: true, class: 'btn btn-warning' %></td> ' +
+    '<td class="not-for-print"><%=j link_to 'Destroy', expense_path(@expense), remote: true, method: :delete, class: 'btn btn-danger destroyer' %></td> ' +
   '</tr>\''
 )
 
