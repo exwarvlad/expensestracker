@@ -40,8 +40,13 @@
     color: #fff !important;
 }
 
-.nav-link:hover {
-    color: rgba(255,255,255,.5) !important;
+.navbar-nav li a {
+    color: white !important;
+    color: rgba(225,225,225,.6) !important;
+}
+
+.navbar-nav li a:hover {
+    color: rgba(255,255,255,.8) !important;
 }
 
 .apply:hover {
