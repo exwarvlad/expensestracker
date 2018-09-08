@@ -42,10 +42,10 @@
                 <%= label_tag('expense[currency_attributes[name]]', 'Currency', class: 'col-xs-3 col-form-label mr-2') %>
                 <div class="col-xs-9">
                   <% if action_name == 'new' %>
-                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(Currency.names.to_a.map(&:first)), class: 'form-control clear_after_create') %>
+                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(Currency.names.to_a.map(&:first)), class: 'form-control currency-modal') %>
                   <% elsif action_name == 'edit' %>
                     <% range = FiltersHelper::CurrencyNames.new(@expense.currency.name) %>
-                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(range.names), prompt: @expense.currency.name, class: 'form-control clear_after_create') %>
+                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(range.names), prompt: @expense.currency.name, class: 'form-control') %>
                 <% end %>
                 </div>
               </div>

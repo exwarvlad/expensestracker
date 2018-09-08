@@ -102,8 +102,7 @@ body {
 .recaptcha {
     padding-top: 15px;
 }
-/*@media only screen and (max-width: 600px) {*/
-    /*.modal-mailer {*/
-        /*min-width: 335px;*/
-    /*}*/
-/*}*/
+
+.currency-modal {
+    cursor: pointer;
+}

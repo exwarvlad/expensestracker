@@ -20,3 +20,47 @@
   padding-right: 15px;
   margin-top: 1.1em;
 }
+
+.currency-convert {
+  width: 70px;
+  cursor: pointer;
+  display: inline !important;
+}
+
+.amount-range {
+  width: 70px;
+  display: inline !important;
+}
+
+.filter-rubrics {
+  width: 175px;
+  display: inline !important;
+}
+
+.filters-bar {
+  min-width: 365px;
+}
+
+.calendar {
+  background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%;
+}
+
+.button-apply {
+  background: none; border: none;
+}
+
+.button-apply i {
+  color: #4cae4c;
+
+}
+
+
+.link-reset i {
+  color: #d43f3a; float: right;
+  padding-top: 2px;
+
+}
+
+//@media only screen and (max-width: 600px) {
+//
+//}
