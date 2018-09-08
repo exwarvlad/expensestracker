@@ -34,7 +34,7 @@ en:
   expense_amount: 'Amount'
   expense_type: 'Rubric'
   created_at: 'Created at'
-  expenses_search: 'Search from a chars'
+  expenses_search: 'Search from chars'
   detroyer: 'Are you sure?'
   total: 'Total'
   log_in: 'Log in'
