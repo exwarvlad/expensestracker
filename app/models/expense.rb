@@ -3,10 +3,11 @@ class Expense < ApplicationRecord
   has_one :currency, as: :currencyable
   accepts_nested_attributes_for :currency, update_only: true
 
-  paginates_per 10
-
+  PAGINATE_PAGES = 10
   MIN_LENGTH = 1
   MAX_LENGTH = 25
+
+  paginates_per PAGINATE_PAGES
 
   # before_create :build_currency
   validates :name, length: { in: MIN_LENGTH..MAX_LENGTH }

@@ -44,6 +44,7 @@ $(function() {
         startDate: start,
         endDate: end,
         maxDate: max_date,
+        showDropdowns: true,
         ranges: {
             'Today': [moment(), moment()],
             'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -81,4 +82,3 @@ $(document).ready(function() {
         $("label[for='data_amount_finish']").attr('for', 'data_amount_start')
     })
 });
-

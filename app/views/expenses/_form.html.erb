@@ -1,3 +1,31 @@
+<script>
+    $(function() {
+        <% if @expense.created_at.nil? %>
+          var start2 = moment();
+        <% else %>
+          var start2 = moment("<%= @expense.created_at.to_date.to_s %>");
+        <% end %>
+
+        function cb(start2) {
+            $('#expense_created_at span').html(start2.format('MMMM D, YYYY'));
+        }
+
+        $('#expense_created_at').daterangepicker({
+            singleDatePicker: true,
+            startDate: start2,
+            maxDate: moment(),
+            showDropdowns: true,
+            locale: {
+                format: 'MMMM D, YYYY'
+            }
+//                          minYear: 2000,
+//                          maxYear: 2018
+        }, cb);
+
+        cb(start2);
+    });
+</script>
+
 <%= form_for(@expense, local: true, remote: true) do |form| %>
   <% if @expense.errors.any? %>
     <div id="error_explanation">
@@ -32,9 +60,23 @@
               </div>
 
               <div class="form-group row">
+                  <%= form.label :created_at, class: 'col-xs-3 col-form-label mr-2' %>
+                <div class="col-xs-9">
+                  <div id="expense_created_at" class="calendar form-control">
+                    <i class="fa fa-calendar"></i>&nbsp;
+                    <span></span> <i class="fa fa-caret-down"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!--<input type="text" name="birthday" value="10/24/1984" />-->
+
+
+
+              <div class="form-group row">
                 <%= form.label :amount, class: 'col-xs-3 col-form-label mr-2' %>
                 <div class="col-xs-9">
-                  <%= form.text_field :amount, value: '%.2f' % @expense.amount, class: 'form-control clear_after_create' %>
+                  <%= form.text_field :amount, value: '%.2f' % @expense.amount, class: 'form-control' %>
                 </div>
               </div>
 

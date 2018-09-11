@@ -1,8 +1,9 @@
 $('#exampleModal').modal('toggle')
 
 $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
-
-$('#search_list tr:first').before(
+<% if Filter.filterable?(@expense.id, current_user.id) %>
+<% tr_position = @expenses.page.find_index { |time| time.created_at.to_date == @expense.created_at.to_date } %>
+$('#search_list tr:eq(<% tr_position %>)').before(
   '<tr id=<%=j "col_#{@expense.id}" %>>' +
     '<td><%=j @expense.name %></td> ' +
     '<td><%=j @expense.current_currency %></td> ' +
@@ -13,7 +14,13 @@ $('#search_list tr:first').before(
   '</tr>\''
 )
 
+tr_size = $('#expenses tbody tr').length
+
+if tr_size == parseInt('<%= Expense::PAGINATE_PAGES %>') + 1
+  $('#expenses tr:last').hide('slow', ->
+    $(this).remove()
+  )
+<% end %>
+
+$('#pagination').html("<%= j(paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm') %>")
 $('#total_sum').html('Total: ' + '<%= number_to_currency(current_user.currency_convert.new_amount_from_expense(@expense.amount, @expense.currency.name), unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')
-# clearing a yellow background of the input for a chrome
-# https://stackoverflow.com/questions/29120333/remove-the-yellow-background-on-input-on-autofill#answer-29120510
-#$('.clear_after_create').css('-webkit-box-shadow', '0 0 0px 1000px white inset')
