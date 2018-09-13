@@ -8,6 +8,7 @@ module ExpensesHelper
       @expenses = expenses.where.not(id: @expense.id)
       @current_page = current_page
       @max_position = max_position
+      @exp_created_at = @expense.created_at.to_date
       result = call_back_out_of_range
       return if result
       calculate
@@ -21,8 +22,8 @@ module ExpensesHelper
 
     def call_back_out_of_range
       if @expenses.page(@current_page).out_of_range?
-        if @expenses.page(@current_page)
-          @exp_created_at = @expense.created_at.to_date
+        prev_page = @expenses.page(@current_page - 1)
+        if prev_page.present? && prev_page.size == @max_position
           calculate_at_prev_page
           true
         else
@@ -32,7 +33,6 @@ module ExpensesHelper
     end
 
     def calculate
-      @exp_created_at = @expense.created_at.to_date
       @date_start = @expenses.page(@current_page).first.created_at.to_date
       @date_end = @expenses.page(@current_page).last.created_at.to_date
 
