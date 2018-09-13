@@ -10,7 +10,7 @@
 <div id="myModal"></div>
 <div class="print" id="print"></div>
 
-  <%= link_to 'New Expense', new_expense_path, class: 'btn btn-success', remote: true %>
+  <%= link_to 'New Expense', new_expense_path(page: params[:page]), class: 'btn btn-success', remote: true %>
   <br><br>
   <%= form_tag('', method: :get, remote: true) do %>
     <label for="search" id="search_label">Expenses</label>
@@ -57,6 +57,7 @@
                           class: 'btn btn-danger destroyer', remote: true %></td>
         </tr>
     <% end %>
+        <tr class="js-calibration"></tr>
     </tbody>
   </table>
     <p id="total_sum">Total: <%= number_to_currency(current_user.currency_convert.total_amount,
@@ -64,7 +65,7 @@
                                                     delimiter: ' ', format: '%n %u') %>
     </p>
     <div id="pagination">
-      <%= paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
+      <%= paginate @expenses.page(params[:page]), page: @expenses.page.current_page, theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
     </div>
   </div>
 

@@ -128,3 +128,7 @@ body {
 .devise-buffer-top {
     padding-top: 7px;
 }
+
+.js-calibration {
+    display: none;
+}

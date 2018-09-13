@@ -105,6 +105,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= hidden_field_tag 'page', params[:page] %>
           <%= form.submit(class: 'btn btn-primary', id: 'modal-sub') %>
         </div>
       </div>
