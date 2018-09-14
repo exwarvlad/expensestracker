@@ -5,6 +5,8 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
 
+  extend ActiveSupport::Concern
+
   # GET /expenses
   # GET /expenses.json
   def index
@@ -65,6 +67,7 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1
   # DELETE /expenses/1.json
   def destroy
+    @exp = DisplacementDestroyer.new(@expenses, params[:page]).expense
     @expense.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Expense was successfully destroyed.' }

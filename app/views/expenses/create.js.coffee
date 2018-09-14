@@ -2,7 +2,7 @@ $('#exampleModal').modal('toggle')
 
 $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
 <% if Filter.filterable?(@expense.id, current_user.id) %>
-<% expense_position_calculate = ExpensesHelper::ExpensePositionCalculator.new(@expense, @expenses, params[:page].to_i, Expense::PAGINATE_PREV - 1) %>
+<% expense_position_calculate = ExpensesCreatorHelper::ExpensePositionCalculator.new(@expense, @expenses, params[:page].to_i, Expense::PAGINATE_PREV) %>
 <% if expense_position_calculate.visible? %>
 <% exp = expense_position_calculate.expense %>
 position = parseInt('<%= expense_position_calculate.position %>')
@@ -20,8 +20,8 @@ $("#search_list tr:eq("+position+")").before(
 
 tr_size = $('#expenses tbody tr').length
 
-if tr_size == parseInt('<%= Expense::PAGINATE_PREV %>') + 1
-  $('#expenses tr:last').hide('slow', ->
+if tr_size == parseInt('<%= Expense::PAGINATE_PREV %>') + 2 # new exp and tr calibration
+  $("#expenses tr:eq("+(tr_size - 1)+")").hide('slow', ->
     $(this).remove()
   )
 <% end %>
