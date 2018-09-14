@@ -9,7 +9,6 @@ class Expense < ApplicationRecord
 
   paginates_per PAGINATE_PREV
 
-  before_save :build_date
   validates :name, length: { in: MIN_LENGTH..MAX_LENGTH }
 
   # check current currency
@@ -24,11 +23,5 @@ class Expense < ApplicationRecord
     ActionController::Base.helpers.number_to_currency(
       Filter.check_expenses(user_id).pluck(:amount).sum, unit: '$', delimiter: ' ', format: '%n %u'
     )
-  end
-
-  private
-
-  def build_date
-    self.created_at = self.created_at.end_of_day.to_s
   end
 end

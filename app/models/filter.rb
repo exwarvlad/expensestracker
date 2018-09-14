@@ -24,7 +24,7 @@ class Filter < ApplicationRecord
     current_filter = User.find(user_id).filter
     data_filter = current_filter.data
     default_query = "user_id = #{user_id}"
-    Expense.order(created_at: :desc).
+    Expense.order(created_at: :desc, updated_at: :desc, id: :desc).
             where("#{default_query}
                    #{rubrics_query(data_filter)}
                    #{amount_range_query(data_filter)}
