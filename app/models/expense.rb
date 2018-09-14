@@ -29,6 +29,6 @@ class Expense < ApplicationRecord
   private
 
   def build_date
-    self.created_at = self.created_at.end_of_day
+    self.created_at = self.created_at.end_of_day.to_s
   end
 end
