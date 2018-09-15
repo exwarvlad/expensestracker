@@ -28,6 +28,15 @@
     $('#modal-sub').click(function() {
         $('#expense_created_at').val($('#date').html());
     });
+
+    var click = 1;
+
+    $("label[for = 'expense_created_at']").click(function () {
+        if (click % 2 == 1) {
+            $('#expense_date').click();
+        }
+        click += 1
+    })
 </script>
 
 <%= form_for(@expense, local: true, remote: true) do |form| %>
