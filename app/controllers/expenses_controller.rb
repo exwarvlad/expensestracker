@@ -1,7 +1,6 @@
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_expenses, except: [:new, :edit]
-  before_action :set_first_page, only: :index
   before_action :set_currency_convert, only: :index
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
@@ -52,6 +51,7 @@ class ExpensesController < ApplicationController
   # PATCH/PUT /expenses/1.json
   def update
     @before_expense = { amount: @expense.amount, currency: @expense.currency.name }
+    @before_position = @expenses.find_index { |exp| exp.id == @expense.id }
     respond_to do |format|
       if @expense.update(expense_params)
         format.html { redirect_to @expense, notice: 'Expense was successfully updated.' }
@@ -95,10 +95,6 @@ class ExpensesController < ApplicationController
 
   def set_expenses
     @expenses = Filter.check_expenses(current_user.id)
-  end
-
-  def set_first_page
-    params[:page] = 1 if @expenses.page.first_page?
   end
 
   def set_currency_convert

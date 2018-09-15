@@ -32,6 +32,10 @@ class CurrencyConvert < ApplicationRecord
   end
 
   def edit_amount_from_expense(expense_before_edit, expense_after_edit)
+    unless Filter.filterable?(expense_before_edit)
+      return delete_amount_from_expense(expense_before_edit.amount, expense_before_edit.currency.name)
+    end
+
     if expense_before_edit.currency.name == self.convert_currency
       before_amount = expense_before_edit.amount
     else

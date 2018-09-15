@@ -1,7 +1,7 @@
 $('#exampleModal').modal('toggle')
 
 $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
-<% if Filter.filterable?(@expense.id, current_user.id) %>
+<% if Filter.filterable?(@expense) %>
 <% expense_position_calculate = ExpensesCreatorHelper::ExpensePositionCalculator.new(@expense, @expenses, params[:page].to_i, Expense::PAGINATE_PREV) %>
 <% if expense_position_calculate.visible? %>
 <% exp = expense_position_calculate.expense %>
