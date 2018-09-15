@@ -1,7 +1,8 @@
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_expenses, except: [:new, :edit]
-  # before_action :set_currency_convert, only: :index
+  before_action :set_first_page, only: :index
+  before_action :set_currency_convert, only: :index
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
 
@@ -94,6 +95,10 @@ class ExpensesController < ApplicationController
 
   def set_expenses
     @expenses = Filter.check_expenses(current_user.id)
+  end
+
+  def set_first_page
+    params[:page] = 1 if @expenses.page.first_page?
   end
 
   def set_currency_convert
