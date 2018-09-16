@@ -1,4 +1,4 @@
-<% displacement_calcuator = ExpensesHelper::DisplacementCalculator.new(@expense, Filter.check_expenses(current_user.id)) %>
+<% displacement_calcuator = ExpensesHelper::DisplacementCalculator.new(@expense, Filter.check_expenses(current_user.id).page(params[:page])) %>
 $('#exampleModal').modal('toggle')
 <% if @before_position == displacement_calcuator.position %>
 $('<%=j "#col_#{@expense.id}" %>').html(
@@ -25,6 +25,7 @@ $("#search_list tr:eq("+position+")").before(
 )
 <% else %>
 before_position = parseInt '<%= @before_position %>'
+$("#search_list tr:eq("+before_position+")").remove()
 position = parseInt '<%= displacement_calcuator.position %>'
 $('#search_list tr:last').before(
   '<tr id=<%=j "col_#{displacement_calcuator.exp_of_prev_page.id}" %>>' +
@@ -38,5 +39,6 @@ $('#search_list tr:last').before(
 )
 <% end %>
 
+$('#pagination').html("<%= j(paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm') %>")
 $('.notice').html("<%=j render 'layouts/messages' %>")
 $('#total_sum').html('Total: ' + '<%= number_to_currency(current_user.currency_convert.edit_amount_from_expense(@expense, @before_expense), unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')

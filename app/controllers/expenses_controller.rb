@@ -51,7 +51,7 @@ class ExpensesController < ApplicationController
   # PATCH/PUT /expenses/1.json
   def update
     @before_expense = { amount: @expense.amount, currency: @expense.currency.name }
-    @before_position = @expenses.find_index { |exp| exp.id == @expense.id }
+    @before_position = @expenses.page(params[:page]).find_index { |exp| exp.id == @expense.id }
     respond_to do |format|
       if @expense.update(expense_params)
         format.html { redirect_to @expense, notice: 'Expense was successfully updated.' }

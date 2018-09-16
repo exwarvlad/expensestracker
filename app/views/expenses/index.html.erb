@@ -48,7 +48,7 @@
           <td><%= expense.current_currency %></td>
           <td><%= expense.expense_type %></td>
           <td><%= expense.created_at.strftime('%d.%m.%Y') %></td>
-          <td class="not-for-print"><%= link_to 'Edit', edit_expense_path(expense, exp: {amount: expense.amount,
+          <td class="not-for-print"><%= link_to 'Edit', edit_expense_path(expense, page: params[:page], exp: {amount: expense.amount,
                                                                                          currency: expense.currency}),
                                                                                          class: 'btn btn-warning',
                                                                                          remote: true %>
