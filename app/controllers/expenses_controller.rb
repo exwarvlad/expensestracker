@@ -36,6 +36,7 @@ class ExpensesController < ApplicationController
     @expense.user_id = current_user.id
     respond_to do |format|
       if @expense.save
+        flash.now[:notice] = 'Expense was successfully created.'
         format.html { redirect_to root_path, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }
         format.js { flash.now[:notice] = 'Expense was successfully created.' }
@@ -54,6 +55,7 @@ class ExpensesController < ApplicationController
     @before_position = @expenses.page(params[:page]).find_index { |exp| exp.id == @expense.id }
     respond_to do |format|
       if @expense.update(expense_params)
+        flash.now.notice = 'Expense was successfully updated.'
         format.html { redirect_to @expense, notice: 'Expense was successfully updated.' }
         format.json { render :show, status: :ok, location: @expense }
         format.js { flash.now.notice = 'Expense was successfully updated.' }
@@ -71,6 +73,7 @@ class ExpensesController < ApplicationController
     @exp = DisplacementDestroyer.new(@expenses, params[:page]).expense
     @expense.destroy
     respond_to do |format|
+      flash.now.notice = 'Expense was successfully destroyed.'
       format.html { redirect_to root_path, notice: 'Expense was successfully destroyed.' }
       format.json { head :no_content }
       format.js { flash.now.notice = 'Expense was successfully destroyed.' }
@@ -94,7 +97,8 @@ class ExpensesController < ApplicationController
   end
 
   def set_expenses
-    @expenses = Filter.check_expenses(current_user.id)
+    @expenses = Filter.check_expenses(current_user.id).page(params[:page])
+    @expenses_before = @expenses.dup.to_a
   end
 
   def set_currency_convert

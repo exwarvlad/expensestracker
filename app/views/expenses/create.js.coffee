@@ -1,9 +1,18 @@
-<% displacement_calcuator = ExpensesHelper::DisplacementCalculator.new(@expense, Filter.check_expenses(current_user.id)) %>
-$('#exampleModal').modal('toggle')
+<% displacement_calcuator = ExpensesHelper::DisplacementCalculator.new(@expenses_before, @expenses) %>
+<% displacement_calcuator.add_for_creates %>
+<% displacement_calcuator.add_for_removes %>
 
-<% exp = displacement_calcuator.expense %>
-<% if exp.present? %>
-position = parseInt('<%= displacement_calcuator.position %>')
+$('#exampleModal').modal('toggle')
+<% displacement_calcuator.for_removes.each do |exp_id| %>
+position = "col_" + parseInt('<%= exp_id %>')
+$("#" + position).hide('slow', ->
+  $(this).remove()
+)
+<% end %>
+
+<% displacement_calcuator.for_adds.each do |item| %>
+<% exp = item[:exp] %>
+position = parseInt('<%= item[:position] %>')
 $("#search_list tr:eq("+position+")").before(
   '<tr id=<%=j "col_#{exp.id}" %>>' +
     '<td><%=j exp.name %></td> ' +
@@ -12,16 +21,9 @@ $("#search_list tr:eq("+position+")").before(
     '<td><%=j exp.created_at.strftime('%d.%m.%Y') %></td> ' +
     '<td class="not-for-print"><%=j link_to 'Edit', edit_expense_path(exp), remote: true, class: 'btn btn-warning' %></td> ' +
     '<td class="not-for-print"><%=j link_to 'Destroy', expense_path(exp), remote: true, method: :delete, class: 'btn btn-danger destroyer' %></td> ' +
-  '</tr>\''
+    '</tr>\''
 )
 <% end %>
-
-tr_size = $('#expenses tbody tr').length
-
-if tr_size == parseInt('<%= Expense::PAGINATE_PREV %>') + 2 # new exp and tr calibration
-  $("#expenses tr:eq("+(tr_size - 1)+")").hide('slow', ->
-    $(this).remove()
-  )
 
 $('#pagination').html("<%= j(paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm') %>")
 $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
