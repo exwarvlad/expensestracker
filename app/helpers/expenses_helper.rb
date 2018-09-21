@@ -23,7 +23,16 @@ module ExpensesHelper
     end
 
     def add_for_edit_per_page(expense)
-      'to be continue...'
+      expense_index_before = @expenses_before.find_index { |exp| exp.id == expense.id }
+      expense_index_after = @expenses_after.find_index { |exp| exp.id == expense.id }
+
+      if expense_index_before == expense_index_after
+        { position: expense_index_before, remove_position: false }
+      elsif expense_index_after.present?
+        { position: expense_index_after, remove_position: expense_index_before }
+      else
+        false
+      end
     end
   end
 end

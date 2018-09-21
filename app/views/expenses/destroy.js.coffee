@@ -2,7 +2,6 @@
 <% displacement_calcuator.add_for_creates %>
 <% displacement_calcuator.add_for_removes %>
 
-$('#exampleModal').modal('toggle')
 <% displacement_calcuator.for_removes.each do |exp_id| %>
 position = "col_" + parseInt('<%= exp_id %>')
 $("#" + position).hide('slow', ->
