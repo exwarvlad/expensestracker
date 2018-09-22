@@ -32,9 +32,9 @@ class Filter < ApplicationRecord
   end
 
   def self.filterable?(expense)
-    current_filter = User.find(expense.user_id).filter
+    current_filter = User.find(expense['user_id']).filter
     data_filter = current_filter.data
-    query_expense_id = "id = #{expense.id}"
+    query_expense_id = "id = #{expense['id']}"
     resp = Expense.where("#{query_expense_id}
                   #{rubrics_query(data_filter)}
                   #{amount_range_query(data_filter)}

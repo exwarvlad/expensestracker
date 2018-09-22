@@ -5,8 +5,6 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
 
-  extend ActiveSupport::Concern
-
   # GET /expenses
   # GET /expenses.json
   def index
@@ -51,7 +49,10 @@ class ExpensesController < ApplicationController
   # PATCH/PUT /expenses/1
   # PATCH/PUT /expenses/1.json
   def update
-    @before_expense = { amount: @expense.amount, currency: @expense.currency.name }
+    # @before_expense = JSON(@expense.to_json, symbolize_names: true)
+    # @before_expense[:currency] = JSON(@expense.currency.to_json, symbolize_names: true)
+    @before_expense = @expense.attributes
+    @before_expense['currency'] = @expense.currency.attributes
     @before_position = @expenses.page(params[:page]).find_index { |exp| exp.id == @expense.id }
     respond_to do |format|
       if @expense.update(expense_params)
@@ -70,7 +71,6 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1
   # DELETE /expenses/1.json
   def destroy
-    @exp = DisplacementDestroyer.new(@expenses, params[:page]).expense
     @expense.destroy
     respond_to do |format|
       flash.now.notice = 'Expense was successfully destroyed.'

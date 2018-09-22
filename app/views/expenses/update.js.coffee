@@ -58,4 +58,4 @@ $("#search_list tr:eq("+position+")").before(
 
 $('#pagination').html("<%= j(paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm') %>")
 $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
-$('#total_sum').html('Total: ' + '<%= number_to_currency(current_user.currency_convert.new_amount_from_expense(@expense.amount, @expense.currency.name), unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')
+$('#total_sum').html('Total: ' + '<%= number_to_currency(current_user.currency_convert.edit_amount_from_expense(@before_expense, @expense), unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')

@@ -33,21 +33,21 @@ class CurrencyConvert < ApplicationRecord
 
   def edit_amount_from_expense(expense_before_edit, expense_after_edit)
     unless Filter.filterable?(expense_before_edit)
-      return delete_amount_from_expense(expense_before_edit.amount, expense_before_edit.currency.name)
+      return delete_amount_from_expense(expense_before_edit['amount'], expense_before_edit['currency']['name'])
     end
 
-    if expense_before_edit.currency.name == self.convert_currency
-      before_amount = expense_before_edit.amount
+    if expense_before_edit['currency']['name'] == self.convert_currency
+      before_amount = expense_before_edit['amount']
     else
-      before_amount = one_amount_to_convert(expense_before_edit.currency.name.upcase) * expense_before_edit.amount
+      before_amount = one_amount_to_convert(expense_before_edit['currency']['name'].upcase) * expense_before_edit['amount']
     end
 
-    if expense_after_edit[:currency] == self.convert_currency
-      edit_amount = expense_after_edit[:amount]
+    if expense_after_edit.currency.name == self.convert_currency
+      edit_amount = expense_after_edit.amount
     else
-      edit_amount = one_amount_to_convert(expense_after_edit[:currency].upcase) * expense_after_edit[:amount]
+      edit_amount = one_amount_to_convert(expense_after_edit.currency.name.upcase) * expense_after_edit.amount
     end
-    residual = edit_amount - before_amount
+    residual = before_amount - edit_amount
     self.total_amount -= residual
     save
     self.total_amount
