@@ -10,6 +10,7 @@ class Expense < ApplicationRecord
   paginates_per PAGINATE_PREV
 
   validates :name, length: { in: MIN_LENGTH..MAX_LENGTH }
+  validate :date_range
 
   # check current currency
   def current_currency
@@ -23,5 +24,14 @@ class Expense < ApplicationRecord
     ActionController::Base.helpers.number_to_currency(
       Filter.check_expenses(user_id).pluck(:amount).sum, unit: '$', delimiter: ' ', format: '%n %u'
     )
+  end
+
+  private
+  def date_range
+    errors.add(:created_at, 'T') if unless_created_at?
+  end
+
+  def unless_created_at?
+    false
   end
 end

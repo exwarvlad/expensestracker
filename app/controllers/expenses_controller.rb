@@ -41,7 +41,7 @@ class ExpensesController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
-        format.js
+        # format.js
       end
     end
   end
@@ -49,8 +49,6 @@ class ExpensesController < ApplicationController
   # PATCH/PUT /expenses/1
   # PATCH/PUT /expenses/1.json
   def update
-    # @before_expense = JSON(@expense.to_json, symbolize_names: true)
-    # @before_expense[:currency] = JSON(@expense.currency.to_json, symbolize_names: true)
     @before_expense = @expense.attributes
     @before_expense['currency'] = @expense.currency.attributes
     @before_position = @expenses.page(params[:page]).find_index { |exp| exp.id == @expense.id }

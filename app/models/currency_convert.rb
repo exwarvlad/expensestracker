@@ -29,6 +29,7 @@ class CurrencyConvert < ApplicationRecord
     else
       self.total_amount -= one_amount_to_convert(currency.upcase) * amount
     end
+    save
     self.total_amount
   end
 
@@ -51,6 +52,8 @@ class CurrencyConvert < ApplicationRecord
 
     residual = before_amount - edit_amount
     self.total_amount -= residual
+    save
+    self.total_amount
   end
 
   def new_amount_from_expense(amount, currency)

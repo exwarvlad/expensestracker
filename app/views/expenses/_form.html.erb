@@ -1,9 +1,9 @@
 <script>
-    $(function() {
+    $(function () {
         <% if @expense.created_at.nil? %>
-          var start2 = moment();
+        var start2 = moment();
         <% else %>
-          var start2 = moment("<%= @expense.created_at.to_date.to_s %>");
+        var start2 = moment("<%= @expense.created_at.to_date.to_s %>");
         <% end %>
 
         function cb(start2) {
@@ -31,7 +31,7 @@
 
     $("label[for = 'expense_created_at']").click(function () {
         $("#expense_date").click();
-    })
+    });
 </script>
 
 <%= form_for(@expense, local: true, remote: true) do |form| %>
