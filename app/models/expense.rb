@@ -5,12 +5,20 @@ class Expense < ApplicationRecord
 
   PAGINATE_PREV = 10
   MIN_LENGTH = 1
-  MAX_LENGTH = 25
+  MAX_LENGTH = 35
+  CREATED_AT_START = Date.today - 100.year
+  CREATED_AT_END = Date.today.end_of_day
 
   paginates_per PAGINATE_PREV
 
   validates :name, length: { in: MIN_LENGTH..MAX_LENGTH }
-  validate :date_range
+  validates :expense_type, length: { in: MIN_LENGTH..MAX_LENGTH }
+  validates :amount, presence: true,
+                     numericality: { greater_than: 0, less_than: 1000000 },
+                     format: { with: /\A\d+(?:\.\d{0,2})?\z/ }
+  validates :currency, presence: true
+  validates :user, presence: true
+  validate :date_rangeable?
 
   # check current currency
   def current_currency
@@ -27,11 +35,19 @@ class Expense < ApplicationRecord
   end
 
   private
-  def date_range
-    errors.add(:created_at, 'T') if unless_created_at?
+
+  def date_rangeable?
+    return errors.add(:created_at, 'created at must be date') if created_at.nil?
+    range = CREATED_AT_START...CREATED_AT_END
+    date = created_at.to_date
+    errors.add(:created_at, "is missing range date #{error_message_date(date)}") unless range.include?(date)
   end
 
-  def unless_created_at?
-    false
+  def error_message_date(date)
+    if date < CREATED_AT_START
+      "(must be >= #{CREATED_AT_START.strftime('%B %d, %Y')})"
+    elsif date > CREATED_AT_END
+      "(must be <= #{CREATED_AT_END.strftime('%B %d, %Y')})"
+    end
   end
 end

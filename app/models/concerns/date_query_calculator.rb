@@ -19,7 +19,7 @@ module DateQueryCalculator
   def check_duration_range(duration)
     if duration.is_a?(Hash)
       ranges = duration.values.first.split('..').first(2)
-      Date.parse(ranges.first)..Date.parse(ranges.last).end_of_day
+      Date.parse(ranges.first.first)..Date.parse(ranges.first.last).end_of_day
     else
       duration = duration.to_sym
       DATE_RANGES.find { |k, v| k == duration }.last

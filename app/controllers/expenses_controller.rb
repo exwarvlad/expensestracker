@@ -41,7 +41,7 @@ class ExpensesController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
-        # format.js
+        format.js { render template: 'expenses/modal_errors' }
       end
     end
   end
@@ -61,7 +61,7 @@ class ExpensesController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
-        format.js { render :edit }
+        format.js { render template: 'expenses/modal_errors' }
       end
     end
   end

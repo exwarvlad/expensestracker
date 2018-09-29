@@ -32,26 +32,18 @@
     $("label[for = 'expense_created_at']").click(function () {
         $("#expense_date").click();
     });
+
+    $('#modal-sub').enableClientSideValidations();
+
+
 </script>
 
 <%= form_for(@expense, local: true, remote: true) do |form| %>
-  <% if @expense.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h2>
-
-      <ul>
-        <% @expense.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Expense <%= action_name %></h5>
+          <h5 class="modal-title" id="exampleModalLabel">Expense <%= modal_name %></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -69,12 +61,18 @@
 
               <div class="form-group row">
                   <%= form.label :created_at, class: 'col-xs-3 col-form-label mr-2' %>
-                  <%= hidden_field_tag 'expense[created_at]' %>
                 <div class="col-xs-9">
                   <div id="expense_date" class="calendar form-control">
                     <i class="fa fa-calendar"></i>&nbsp;
                     <span id="date"></span> <i class="fa fa-caret-down"></i>
                   </div>
+                </div>
+
+                <% if @expense.errors[:created_at].present? %>
+                  <label for="calibration" class="col-xs-3 col-form-label mr-2 visibility-calibration">q</label>
+                <% end %>
+                <div class="col-xs-9">
+                  <%= form.text_field :created_at, class: 'js-calibration', id: 'expense_created_at' %>
                 </div>
               </div>
 
@@ -88,9 +86,9 @@
               <div class="form-group row">
                 <%= label_tag('expense[currency_attributes[name]]', 'Currency', class: 'col-xs-3 col-form-label mr-2') %>
                 <div class="col-xs-9">
-                  <% if action_name == 'new' %>
-                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(Currency.names.to_a.map(&:first)), class: 'form-control currency-modal') %>
-                  <% elsif action_name == 'edit' %>
+                  <% if action_name == 'new' || action_name == 'create' %>
+                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(Currency.names.to_a.map(&:first)), class: 'form-control currency-modal', validate: true) %>
+                  <% elsif action_name == 'edit' || action_name == 'update' %>
                     <% range = FiltersHelper::CurrencyNames.new(@expense.currency.name) %>
                     <%= select_tag('expense[currency_attributes[name]]', options_for_select(range.names), prompt: @expense.currency.name, class: 'form-control') %>
                 <% end %>

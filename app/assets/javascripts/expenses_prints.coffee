@@ -14,5 +14,4 @@ $(document).ready ->
   window.onafterprint = (event) ->
     $('#not_click_me').attr 'id', 'click_me'
     return
-
   return
