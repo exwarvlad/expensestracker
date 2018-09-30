@@ -5,6 +5,8 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
 
+  extend ExpenseService
+
   # GET /expenses
   # GET /expenses.json
   def index
@@ -30,8 +32,7 @@ class ExpensesController < ApplicationController
   # POST /expenses
   # POST /expenses.json
   def create
-    @expense = Expense.new(expense_params)
-    @expense.user_id = current_user.id
+    @expense = ExpenseService.create(expense_params, current_user.id)
     respond_to do |format|
       if @expense.save
         flash.now[:notice] = 'Expense was successfully created.'

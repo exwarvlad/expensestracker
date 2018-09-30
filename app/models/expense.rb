@@ -16,9 +16,10 @@ class Expense < ApplicationRecord
   validates :amount, presence: true,
                      numericality: { greater_than: 0, less_than: 1000000 },
                      format: { with: /\A\d+(?:\.\d{0,2})?\z/ }
-  validates :currency, presence: true
+  validates :currency, presence: { message: 'currency must be currency' }
   validates :user, presence: true
   validate :date_rangeable?
+  validate :currency_name_valid?
 
   # check current currency
   def current_currency
@@ -49,5 +50,10 @@ class Expense < ApplicationRecord
     elsif date > CREATED_AT_END
       "(must be <= #{CREATED_AT_END.strftime('%B %d, %Y')})"
     end
+  end
+
+  def currency_name_valid?
+    return if currency.nil?
+    errors.add(:currency, "currency can`t #{currency.name}") unless Currency.names.keys.include?(currency.name)
   end
 end
