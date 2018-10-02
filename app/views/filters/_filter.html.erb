@@ -3,7 +3,7 @@
     <h3><%= t(:expenses_filters) %></h3>
     <div class="link-tags">
       <%= form_for(current_user, url: user_filter_path(current_user), method: :put) do %>
-        <%= hidden_field_tag 'data[duration]' %>
+        <%= hidden_field_tag 'filter[data[duration]]' %>
 
         <div id="reportrange" class="calendar form-control">
           <i class="fa fa-calendar"></i>&nbsp;
@@ -11,21 +11,21 @@
         </div>
         <br>
 
-        <%= label_tag 'data[rubric_names]', 'Rubrics' %>
-        <%= text_field_tag 'data[rubric_names]', current_user.filter.data['rubric_name'], class: 'form-control filter-rubrics', placeholder: 'Rubric1,Rubric2', value: current_user.filter.data['rubric_names'] %>
+        <%= label_tag 'filter[data[rubric_names]]', 'Rubrics' %>
+        <%= text_field_tag 'filter[data[rubric_names]]', current_user.filter.data['rubric_name'], class: 'form-control filter-rubrics', placeholder: 'Rubric1,Rubric2', value: current_user.filter.data['rubric_names'] %>
             <br><br>
 
-            <%= label_tag 'data[amount][start]', 'Amount range' %>
+            <%= label_tag 'filter[data[amount][start]]', 'Amount range' %>
             <span> >= </span>
-            <%= text_field_tag 'data[amount][start]', round_amount(current_user.filter.data['amount']['start']), class: 'form-control amount-range', placeholder: '0.00' %>
+            <%= text_field_tag 'filter[data[amount][start]]', round_amount(current_user.filter.data['amount']['start']), class: 'form-control amount-range', placeholder: '0.00' %>
             <span> <= </span>
-            <%= text_field_tag 'data[amount][finish]', round_amount(current_user.filter.data['amount']['finish']), placeholder: '∞', class: 'form-control amount-range placeholder_center' %>
+            <%= text_field_tag 'filter[data[amount][finish]]', round_amount(current_user.filter.data['amount']['finish']), placeholder: '∞', class: 'form-control amount-range placeholder_center' %>
 
         <br><br>
 
-        <%= label_tag('currency[name]', 'Currency convert') %>
+        <%= label_tag('filter[currency_attributes[name]]', 'Currency convert') %>
         <% range = FiltersHelper::CurrencyNames.new(current_user.filter.currency.name) %>
-        <%= select_tag('currency[name]', options_for_select(range.names), prompt: range.current_name, class: 'form-control currency-convert') %>
+        <%= select_tag('filter[currency_attributes[name]]', options_for_select(range.names), prompt: range.current_name, class: 'form-control currency-convert') %>
         <br>
 
         <div class="row">

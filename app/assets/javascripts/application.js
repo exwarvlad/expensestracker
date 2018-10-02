@@ -62,11 +62,19 @@ $(function() {
 
 
 $(document).ready(function() {
-    $('#data_amount_start').focusin(function() {
-        $("label[for='data_amount_start']").attr('for', 'data_amount_finish')
+    $('#filter_data_amount_start').focusin(function() {
+        $("label[for='filter_data_amount_start']").attr('for', 'filter_data_amount_finish')
     });
 
-    $('#data_amount_finish').focusout(function () {
-        $("label[for='data_amount_finish']").attr('for', 'data_amount_start')
+    $('#filter_data_amount_finish').focusout(function () {
+        $("label[for='filter_data_amount_finish']").attr('for', 'filter_data_amount_start')
+    })
+});
+
+$(document).ready(function() {
+    $('#exampleModal').on('hide.bs.modal', function () {
+        // do something…
+        console.log('hide');
+        $('body').removeAttr('style')
     })
 });

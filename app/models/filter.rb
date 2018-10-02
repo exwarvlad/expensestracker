@@ -18,7 +18,8 @@ class Filter < ApplicationRecord
   before_create :build_currency
   before_update :build_duration
 
-  validates :data, presence: true, json: { schema: JSON_SCHEMA }
+  # validates :data, presence: true, json: { schema: JSON_SCHEMA }
+  validates :currency, presence: { message: 'currency must be currency' }
 
   def self.check_expenses(user_id)
     current_filter = User.find(user_id).filter

@@ -97,7 +97,7 @@
                 <% if @expense.errors[:currency].present? %>
                     <label for="calibration" class="col-xs-3 col-form-label mr-2 visibility-calibration">q</label>
                     <div class="col-xs-9">
-                      <%= form.label :currency, @expense.errors[:currency].first, class: 'message', for: 'expense_currency_attributes_name' %>
+                      <%= form.label :currency, @expense.errors[:currency].last, class: 'message', for: 'expense_currency_attributes_name' %>
                     </div>
                 <% end %>
               </div>

@@ -6,7 +6,7 @@
     "amount": {
       "type": "object",
       "properties": {
-        "start":  {"type": "float"},
+        "start":  {"type": "number", "minimum": 0, "maximum": 99999.99},
         "finish": {"type": "string"}
       },
       "required": ["start", "finish"]

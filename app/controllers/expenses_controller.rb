@@ -34,8 +34,7 @@ class ExpensesController < ApplicationController
   def create
     @expense = ExpenseService.create(expense_params, current_user.id)
     respond_to do |format|
-      if @expense.save
-        flash.now[:notice] = 'Expense was successfully created.'
+      if @expense.errors.empty?
         format.html { redirect_to root_path, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }
         format.js { flash.now[:notice] = 'Expense was successfully created.' }
@@ -53,9 +52,10 @@ class ExpensesController < ApplicationController
     @before_expense = @expense.attributes
     @before_expense['currency'] = @expense.currency.attributes
     @before_position = @expenses.page(params[:page]).find_index { |exp| exp.id == @expense.id }
+    ExpenseService.update(@expense, expense_params)
+
     respond_to do |format|
-      if @expense.update(expense_params)
-        flash.now.notice = 'Expense was successfully updated.'
+      if @expense.errors.empty?
         format.html { redirect_to @expense, notice: 'Expense was successfully updated.' }
         format.json { render :show, status: :ok, location: @expense }
         format.js { flash.now.notice = 'Expense was successfully updated.' }
