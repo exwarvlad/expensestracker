@@ -5,13 +5,14 @@ class FiltersController < ApplicationController
   extend FilterService
 
   def update
-    if @filter.update(FilterService.filter_params(params, Currency.names.keys))
-      respond_to do |format|
+    FilterService.update(@filter, filter_params)
+
+    respond_to do |format|
+      if @filter.errors.empty?
         format.html { redirect_to root_path, notice: 'Filters successfully updated.' }
+      else
+        format.html { redirect_to root_path, alert: 'Filters have unless values.', params: {ff: @filter} }
       end
-    else
-      redirect_to root_path, alert: 'Filters have unless values'
-      # format.html { redirect_to root_path }
     end
   end
 
@@ -28,7 +29,8 @@ class FiltersController < ApplicationController
   private
 
   def filter_params
-    FilterService.filter_params(params, Currency.names.keys)
+    # FilterService.filter_params(params, Currency.names.keys)
+    params.require(:filter).permit(data: {}, currency_attributes: [:name])
   end
 
   def set_filter
