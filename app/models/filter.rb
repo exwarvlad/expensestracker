@@ -21,6 +21,7 @@ class Filter < ApplicationRecord
   validates :data, presence: true, json: { schema: JSON_SCHEMA }
   validates :currency, presence: true
   validate :verify_amount_finish
+  validate :verify_date_range
 
   def self.check_expenses(user_id)
     current_filter = User.find(user_id).filter
@@ -84,5 +85,41 @@ class Filter < ApplicationRecord
     amount_start = data['amount']['start']
     amount_finish = data['amount']['finish'].to_f
     self.errors.add(:data, 'invalid amount_range') if amount_finish < amount_start
+  end
+
+  def verify_date_range
+    current_date = Filter.check_duration_type(data['duration'], '-')
+
+    if current_date.is_a?(Hash)
+      verify_custom_range(current_date)
+    elsif current_date.is_a?(Symbol)
+      verify_given_string_date(current_date)
+    else
+      self.errors.add(:data, 'invalid date range')
+    end
+  end
+
+  def verify_custom_range(current_date)
+    date_start = Date.today - 100.year
+    date_end = Date.today.end_of_day
+    date_range = date_start...date_end
+
+    begin
+      duration_start = current_date[:custom_range].first
+      duration_end = current_date[:custom_range].end
+
+      if duration_start > duration_end ||
+          date_range.exclude?(duration_start) ||
+          date_range.exclude?(duration_end)
+      \
+      self.errors.add(:data, 'invalid date range')
+      end
+    rescue
+      self.errors.add(:data, 'invalid date range')
+    end
+  end
+
+  def verify_given_string_date(current_date)
+    self.errors.add(:data, 'invalid date range') if DateQueryCalculator::DATE_RANGES.keys.exclude?(current_date)
   end
 end
