@@ -110,9 +110,9 @@ class Filter < ApplicationRecord
 
       if duration_start > duration_end ||
           date_range.exclude?(duration_start) ||
-          date_range.exclude?(duration_end)
-      \
-      self.errors.add(:data, 'invalid date range')
+          date_range.exclude?(duration_end.beginning_of_day)
+
+        self.errors.add(:data, 'invalid date range')
       end
     rescue
       self.errors.add(:data, 'invalid date range')

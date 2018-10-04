@@ -17,12 +17,12 @@ class FiltersController < ApplicationController
   end
 
   def reset
-    if @filter.update(Filter::DEFAULT_PARAMS)
-      respond_to do |format|
+    respond_to do |format|
+      if @filter.update(Filter::DEFAULT_PARAMS)
         format.html { redirect_to root_path, notice: 'Filters successfully reset.' }
+      else
+        format.html { redirect_to root_path, alert: 'Filters have unless values' }
       end
-    else
-      format.html { redirect_to root_path, alert: 'Filters have unless values' }
     end
   end
 
