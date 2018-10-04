@@ -9,9 +9,5 @@ module FilterService
       end
       filter
     end
-
-    private
-
-    include ParamsMutator
   end
 end
