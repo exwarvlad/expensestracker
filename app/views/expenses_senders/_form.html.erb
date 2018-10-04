@@ -1,16 +1,4 @@
-<%= form_for(@expenses_sender, local: true, remote: true, url: user_expenses_sender_path(current_user), method: :put) do |f| %>
-  <% if @expenses_sender.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@expenses_sender.errors.count, "error") %> prohibited this expense from being saved:</h2>
-
-      <ul>
-        <% @expenses_sender.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= form_for(@expenses_sender, local: true, remote: true, url: user_expenses_sender_path(current_user), method: :put, validate: true) do |f| %>
   <div class="modal fade" id="senderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-mailer" role="document">
       <div class="modal-content">
@@ -31,6 +19,11 @@
                 <%= recaptcha_tags %>
               </div>
             </div>
+
+            <% if @expenses_sender.errors[:base].present? %>
+                <%= label_tag :base, @expenses_sender.errors[:base].last, class: 'message center' %>
+            <% end %>
+
           </form>
         </div>
         <div class="modal-footer">

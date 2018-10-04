@@ -1,2 +1,4 @@
-$('#senderModal').modal('toggle')
-$('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
+$('.modal-backdrop').remove()
+$('body').removeAttr('style')
+$("#myModal").html("<%= j render "form"%>")
+$('#senderModal').modal('show')

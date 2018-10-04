@@ -6,19 +6,18 @@ class ExpensesSendersController < ApplicationController
     @expenses_ids = params[:expenses]
     respond_to do |f|
       f.html
-      f.js {render template: 'expenses_senders/edit'}
+      f.js { render template: 'expenses_senders/edit' }
     end
   end
 
   def update
-    # return respond_to { |f| f.js { flash.now[:notice] = 'Expenses pages have unless values' } }
-    if @expenses_sender.update(expenses_sender_params) && verify_recaptcha(model: @expenses_sender)
-      SenderToEmailWorker.perform_async(@expenses_sender.email, current_user.id, expenses_parms)
-      respond_to do |f|
+    respond_to do |f|
+      if @expenses_sender.update(expenses_sender_params) && verify_recaptcha(model: @expenses_sender)
+        SenderToEmailWorker.perform_async(@expenses_sender.email, current_user.id, expenses_parms)
         f.js { flash.now[:notice] = "Expenses pages successful deliver to #{@expenses_sender.email}" }
+      else
+        f.js
       end
-    else
-      render :edit
     end
   end
 
