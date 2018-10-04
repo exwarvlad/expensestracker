@@ -1,7 +1,9 @@
 {
   "properties": {
     "rubric_names": {
-      "type": "string"
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 255
     },
     "amount": {
       "type": "object",
