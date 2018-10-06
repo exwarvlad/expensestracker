@@ -6,6 +6,16 @@ class Filter < ApplicationRecord
 
   JSON_SCHEMA = "#{Rails.root}/app/models/schemas/filter/data.json"
 
+  DEFAULT_DATA = {
+      data: {
+          rubric_names: '',
+          amount: { start: 0, finish: '' },
+          duration: check_duration_type(date_to_s(Date.today - 29.day..Date.today), '-'),
+      }
+  }
+
+  DEFAULT_CURRENCY = { currency_attributes: { name: 0 } }
+
   DEFAULT_PARAMS = {
       data: {
           rubric_names: '',
@@ -18,10 +28,10 @@ class Filter < ApplicationRecord
   before_create :build_currency
   before_update :build_duration
 
-  validates :data, presence: true, json: { schema: JSON_SCHEMA }
-  validates :currency, presence: true
-  validate :verify_amount_finish
-  validate :verify_date_range
+  # validates :data, presence: true, json: { schema: JSON_SCHEMA }
+  # validates :currency, presence: true
+  # validate :verify_amount_finish
+  # validate :verify_date_range
 
   def self.check_expenses(user_id)
     current_filter = User.find(user_id).filter

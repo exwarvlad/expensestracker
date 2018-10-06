@@ -5,7 +5,7 @@ class Expense < ApplicationRecord
 
   PAGINATE_PREV = 10
   MIN_LENGTH = 1
-  MAX_LENGTH = 35
+  MAX_LENGTH = 42
   CREATED_AT_START = Date.today - 100.year
   CREATED_AT_END = Date.today.end_of_day
 

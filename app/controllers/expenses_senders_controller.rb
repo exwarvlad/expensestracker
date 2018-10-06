@@ -14,9 +14,10 @@ class ExpensesSendersController < ApplicationController
     respond_to do |f|
       if @expenses_sender.update(expenses_sender_params) && verify_recaptcha(model: @expenses_sender)
         SenderToEmailWorker.perform_async(@expenses_sender.email, current_user.id, expenses_parms)
-        f.js { flash.now[:notice] = "Expenses pages successful deliver to #{@expenses_sender.email}" }
+        flash.now[:notice] = "Expenses pages successful deliver to #{@expenses_sender.email}"
+        f.js { render template: 'expenses_senders/update' }
       else
-        f.js
+        f.js { render template: 'expenses_senders/update_errors' }
       end
     end
   end
