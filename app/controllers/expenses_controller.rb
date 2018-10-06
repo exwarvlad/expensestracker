@@ -101,7 +101,9 @@ class ExpensesController < ApplicationController
   end
 
   def set_currency_convert
-    current_user.currency_convert.update_bank(@expenses, current_user.filter.currency.name)
-    current_user.currency_convert.transfer_transit
+    if params[:page].nil?
+      current_user.currency_convert.update_bank(@expenses, current_user.filter.currency.name)
+      current_user.currency_convert.transfer_transit
+    end
   end
 end
