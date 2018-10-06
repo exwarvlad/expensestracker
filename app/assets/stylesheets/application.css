@@ -148,3 +148,7 @@ body {
 div.field_with_errors div.ui-effects-wrapper {
     display: inline-block !important;
 }
+
+.buffer-right-25 {
+    padding-right: 25px;
+}
