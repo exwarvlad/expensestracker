@@ -25,7 +25,7 @@ $("#search_list tr:eq("+position+")").before(
 )
 <% end %>
 
-$('#pagination').html("<%= j(paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm') %>")
+$('#pagination').html("<%= j(paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm', params: {controller: 'expenses', action: 'index'}) %>")
 $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
 
 <% if Filter.filterable?({'user_id' => current_user.id, 'id' => @expense.id}) %>
