@@ -8,7 +8,7 @@
     "amount": {
       "type": "object",
       "properties": {
-        "start":  {"type": "number", "minimum": 0, "maximum": 99999.99},
+        "start":  {"type": "number", "minimum": 0, "maximum": 1000000000000},
         "finish": {"type": "string"}
       },
       "required": ["start", "finish"]

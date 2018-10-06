@@ -14,7 +14,7 @@ class Expense < ApplicationRecord
   validates :name, length: { in: MIN_LENGTH..MAX_LENGTH }
   validates :expense_type, length: { in: MIN_LENGTH..MAX_LENGTH }
   validates :amount, presence: true,
-                     numericality: { greater_than: 0, less_than: 1000000 },
+                     numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 1_000_000_000_000 },
                      format: { with: /\A\d+(?:\.\d{0,2})?\z/ }
   validates :currency, presence: true
   validates :user, presence: true
