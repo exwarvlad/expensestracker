@@ -87,10 +87,10 @@
                 <%= label_tag('expense[currency_attributes[name]]', 'Currency', class: 'col-xs-3 col-form-label mr-2') %>
                 <div class="col-xs-9">
                   <% if action_name == 'new' || action_name == 'create' %>
-                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(Currency.names.to_a.map(&:first)), class: 'form-control currency-modal', validate: true) %>
+                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(Currency.names.to_a.map(&:first)), class: 'form-control currency-modal') %>
                   <% elsif action_name == 'edit' || action_name == 'update' %>
                     <% range = FiltersHelper::CurrencyNames.new(@expense.currency.name) %>
-                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(range.names), prompt: @expense.currency.name, class: 'form-control') %>
+                    <%= select_tag('expense[currency_attributes[name]]', options_for_select(range.names), prompt: @expense.currency.name, class: 'form-control currency-modal') %>
                 <% end %>
                 </div>
 

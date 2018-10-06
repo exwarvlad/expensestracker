@@ -129,10 +129,13 @@ class CurrencyConvert < ApplicationRecord
   end
 
   def set_total_bank(expenses)
-    return if expenses.nil?
-    total_bank = Hash.new(0)
-    expenses.each_with_object(total_bank).each { |e, h| h[e.currency.name] += e.amount }
-    self.total_bank = total_bank
+    if expenses.present?
+      total_bank = Hash.new(0)
+      expenses.each_with_object(total_bank).each { |e, h| h[e.currency.name] += e.amount }
+      self.total_bank = total_bank
+    else
+      self.total_bank = { Currency.names.keys.first => 0 }
+    end
     save
   end
 end

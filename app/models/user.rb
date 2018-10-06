@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :database_authenticatable, :registerable, :omniauthable, omniauth_providers: %i[facebook]
 
-  has_many :expenses
+  has_many :expenses, dependent: :destroy
   has_one :filter, inverse_of: :user, dependent: :destroy
   has_one :currency_convert, inverse_of: :user, dependent: :destroy
   has_one :expenses_sender, inverse_of: :user, dependent: :destroy
