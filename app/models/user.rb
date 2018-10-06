@@ -43,10 +43,9 @@ class User < ApplicationRecord
   private
 
   def build_default_filter
-    self.filter = Filter.new(Filter::DEFAULT_DATA)
-    self.filter.currency = Currency.new(Filter::DEFAULT_CURRENCY[:currency_attributes])
+    self.filter = Filter.new(data: Filter::DEFAULT_PARAMS[:data])
+    self.filter.currency = Currency.new(Filter::DEFAULT_PARAMS[:currency_attributes])
     self.currency_convert = CurrencyConvert.new(convert_currency: 'usd')
-    self.expenses_sender = ExpensesSender.new(email: email)
   end
 
   def build_expenses_sender
