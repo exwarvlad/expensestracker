@@ -27,4 +27,7 @@ $("#search_list tr:eq("+position+")").before(
 
 $('#pagination').html("<%= j(paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm') %>")
 $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
+
+<% if Filter.filterable?({'user_id' => current_user.id, 'id' => @expense.id}) %>
 $('#total_sum').html('Total: ' + '<%= number_to_currency(current_user.currency_convert.new_amount_from_expense(@expense.amount, @expense.currency.name), unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')
+<% end %>

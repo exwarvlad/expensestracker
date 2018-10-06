@@ -6,9 +6,9 @@ class User < ApplicationRecord
          :database_authenticatable, :registerable, :omniauthable, omniauth_providers: %i[facebook]
 
   has_many :expenses
-  has_one :filter
-  has_one :currency_convert
-  has_one :expenses_sender
+  has_one :filter, inverse_of: :user, dependent: :destroy
+  has_one :currency_convert, inverse_of: :user, dependent: :destroy
+  has_one :expenses_sender, inverse_of: :user, dependent: :destroy
   before_create :build_default_filter
   before_create :build_expenses_sender
 
