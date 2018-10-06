@@ -31,7 +31,7 @@
       <th><%= t(:created_at) %></th>
       <th></th>
       <th>
-        <%= link_to edit_user_expenses_sender_path(current_user, expenses: @expenses.ids), remote: true do %>
+        <%= link_to edit_user_expenses_sender_path(current_user), remote: true do %>
             <i class="fa fa-envelope printer" aria-hidden="true"></i>
       <% end %>
         <%= link_to print_user_expenses_print_path(current_user), id: 'click_me', remote: true do %>

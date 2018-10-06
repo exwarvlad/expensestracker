@@ -2,6 +2,8 @@ class ExpensesSendersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_expenses_sender, only: [:edit, :update]
 
+  extend ExpensesSenderService
+
   def edit
     @expenses_ids = params[:expenses]
     respond_to do |f|
@@ -11,8 +13,9 @@ class ExpensesSendersController < ApplicationController
   end
 
   def update
+    @expenses_sender = ExpensesSenderService.update(@expenses_sender, expenses_sender_params, expenses_parms)
     respond_to do |f|
-      if @expenses_sender.update(expenses_sender_params) && verify_recaptcha(model: @expenses_sender)
+      if @expenses_sender.errors.empty? && verify_recaptcha(model: @expenses_sender)
         SenderToEmailWorker.perform_async(@expenses_sender.email, current_user.id, expenses_parms)
         flash.now[:notice] = "Expenses pages successful deliver to #{@expenses_sender.email}"
         f.js { render template: 'expenses_senders/update' }
@@ -33,6 +36,6 @@ class ExpensesSendersController < ApplicationController
   end
 
   def expenses_parms
-    params.require(:expenses).split(' ').map(&:to_i)
+    @expenses_sender.user.expenses.ids
   end
 end
