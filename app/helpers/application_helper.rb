@@ -19,7 +19,7 @@ module ApplicationHelper
 
   def devise_password_confirm
     if current_user.provider.present?
-      "(we need your current password or #{current_user.provider} authenticate to confirm your changes)"
+      "(we need your current password or #{current_user.provider} authenticated to confirm your changes)"
     else
       '(we need your current password to confirm your changes)'
     end
