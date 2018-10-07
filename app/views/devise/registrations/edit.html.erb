@@ -13,7 +13,7 @@
     <% end %>
 
     <div class="field">
-      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+      <%= f.label :current_password %> <i><%= devise_password_confirm %></i><br />
       <%= f.password_field :current_password, autocomplete: "off", class: 'form-control devise' %>
     </div>
 
