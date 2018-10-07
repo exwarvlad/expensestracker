@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   get 'expenses_senders/new'
   get 'expenses_senders/create'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
-                                    registrations: 'users/registrations' }
+                                    registrations: 'users/registrations',
+                                    passwords: 'users/passwords'}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'expenses#index'
   resources :expenses, except: :show

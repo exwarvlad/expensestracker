@@ -8,6 +8,12 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control devise' %>
   </div>
 
+    <%= recaptcha_tags class: 'buffer-top-5' %>
+
+    <% if resource.errors[:base].present? %>
+        <%= label_tag :base, resource.errors[:base].last, class: 'message' %>
+    <% end %>
+
   <div class="actions devise-buffer-top">
     <%= f.submit "Send me reset password instructions", class: 'btn btn-default' %>
   </div>
