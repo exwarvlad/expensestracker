@@ -2,8 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :database_authenticatable, :registerable, :omniauthable, omniauth_providers: %i[facebook]
+         :recoverable, :rememberable, :trackable, :validatable, :async,
+         :omniauthable, omniauth_providers: %i[facebook]
 
   has_many :expenses, dependent: :destroy
   has_one :filter, inverse_of: :user, dependent: :destroy
@@ -30,6 +30,10 @@ class User < ApplicationRecord
         end
       end
     end
+  end
+
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 
   private
