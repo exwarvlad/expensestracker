@@ -18,6 +18,13 @@ RSpec.describe Expense, type: :model do
                                  currency_attributes: { name: 0 },
                                  created_at: Expense::CREATED_AT_END + 1.second)
       }.to raise_error
+
+      # when invalid date
+      expect { FactoryBot.create(:expense,
+                                 user_id: user.id,
+                                 currency_attributes: { name: 0 },
+                                 created_at: 'invalid date')
+      }.to raise_error
     end
   end
 end
