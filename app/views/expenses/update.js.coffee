@@ -4,6 +4,7 @@
 <% result = displacement_calcuator.add_for_edit_per_page(@expense) %>
 
 $('#exampleModal').modal('toggle')
+$('#total_sum').html('Total: ' + '<%= number_to_currency(current_user.currency_convert.edit_amount_from_expense(@before_expense, @expense), unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')
 <% displacement_calcuator.for_removes.each do |exp_id| %>
 position = "col_" + parseInt('<%= exp_id %>')
 $("#" + position).hide('slow', ->
@@ -58,4 +59,3 @@ $("#search_list tr:eq("+position+")").before(
 
 $('#pagination').html("<%= j(paginate @expenses.page(params[:page]), theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm', params: {controller: 'expenses', action: 'index'}) %>")
 $('.notice').html("<%= escape_javascript(render 'layouts/messages') %>")
-$('#total_sum').html('Total: ' + '<%= number_to_currency(current_user.currency_convert.edit_amount_from_expense(@before_expense, @expense), unit: current_user.currency_convert.convert_currency, delimiter: ' ', format: '%n %u') %>')
