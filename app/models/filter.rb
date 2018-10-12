@@ -1,5 +1,7 @@
+require_relative '../../lib/date_query_calculator.rb'
+
 class Filter < ApplicationRecord
-  extend ActiveSupport::Concern::DateQueryCalculator
+  extend DateQueryCalculator
   belongs_to :user
   has_one :currency, as: :currencyable
   accepts_nested_attributes_for :currency, update_only: true
