@@ -6,29 +6,29 @@
         <%= link_to 'Sign In', new_user_session_path %>
       </div>
     </div>
-    <div class="panel-body" >
+    <div class="panel-body">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: 'form-horizontal', id: 'signupform') do |f| %>
 
-        <div id="signupalert" style="display:none" class="alert alert-danger">
-          <p>Error:</p>
-          <span></span>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :email, class: 'col-md-3 control-label' %>
-          <div class="col-md-9">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Email Address', id: 'login-username' %>
-            <br>
+          <div id="signupalert" style="display:none" class="alert alert-danger">
+            <p>Error:</p>
+            <span></span>
           </div>
-        </div>
 
-        <div class="form-group">
-          <%= f.label :password, class: 'col-md-3 control-label' %>
-          <div class="col-md-9">
-            <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'login-password', placeholder: 'Password' %>
-            <br>
+          <div class="form-group">
+            <%= f.label :email, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Email Address', id: 'login-username' %>
+              <br>
+            </div>
           </div>
-        </div>
+
+          <div class="form-group">
+            <%= f.label :password, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'login-password', placeholder: 'Password' %>
+              <br>
+            </div>
+          </div>
 
           <div class="form-group">
             <%= f.label :password_confirmation, class: 'col-md-3 control-label' %>
@@ -38,25 +38,26 @@
             </div>
           </div>
 
-        <div class="form-group buffer-bot-20">
-          <!-- Button -->
-          <div class="col-md-offset-3 col-md-9">
-            <%= f.submit 'Sign Up', id: 'btn-signup', class: 'btn btn-info' do %>
-                <i class="icon-hand-right">&nbsp Sign Up</i>
-            <% end %>
-            <span style="margin-left:8px;">or</span>
-            <br>
-          </div>
-        </div>
-
-        <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
-
-          <div class="col-md-offset-3 col-md-9">
-            <%= link_to 'Sign Up with Facebook', user_facebook_omniauth_authorize_path, id: 'btn-fblogin', class: 'btn btn-primary' %>
-            <br>
+          <div class="form-group">
+            <!-- Button -->
+            <div class="col-md-offset-3 col-md-9">
+              <%= f.submit 'Sign Up', id: 'btn-signup', class: 'btn btn-info' do %>
+                  <i class="icon-hand-right">&nbsp Sign Up</i>
+              <% end %>
+              <span style="margin-left:8px;">or</span>
+              <br><br>
+            </div>
           </div>
 
-        </div>
+          <div class="form-group">
+            <div class="col-md-12 control">
+              <div style="border-top: 1px solid #999; padding-top:20px;" class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                  <%= link_to 'Sign Up with Facebook', user_facebook_omniauth_authorize_path, id: 'btn-fblogin', class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          </div>
 
       <% end %>
     </div>
