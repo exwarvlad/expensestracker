@@ -1,26 +1,65 @@
-<h2>Log in</h2>
+<div class="container">
+  <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-info" >
+      <div class="panel-heading">
+        <div class="panel-title">Sign In</div>
+        <div style="float:right; font-size: 80%; position: relative; top:-10px">
+          <%= link_to 'Forgot password?', new_user_password_path %>
+        </div>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control devise' %>
-  </div>
+      <div style="padding-top:30px" class="panel-body" >
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off", class: 'form-control devise' %>
-  </div>
+        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'form-horizontal', id: 'loginform', role: 'form') do |f| %>
+
+            <div style="margin-bottom: 25px" class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'email', id: 'login-username' %>
+            </div>
+
+            <div style="margin-bottom: 25px" class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+              <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'login-password', placeholder: 'password' %>
+            </div>
+
+
+
+            <div class="input-group">
+              <div class="checkbox">
+                <label>
+                  <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+                </label>
+              </div>
+            </div>
+
+
+            <div style="margin-top:10px" class="form-group">
+              <!-- Button -->
+
+              <div class="col-sm-12 controls">
+                <%= f.submit 'Login', class: 'btn btn-success', id: 'btn-login' %>
+                <%= link_to 'Login with Facebook', user_facebook_omniauth_authorize_path, id: 'btn-fblogin', class: 'btn btn-primary' %>
+                <br> <br>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col-md-12 control">
+                <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                  Don't have an account!
+                  <%= link_to 'Sign Up Here', new_user_registration_path %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+
+
+
+      </div>
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in", class: 'btn btn-default' %>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+</div>
