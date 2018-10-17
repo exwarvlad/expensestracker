@@ -36,10 +36,6 @@ class Users::PasswordsController < Devise::PasswordsController
 
   private
 
-  prepend_before_action :check_captcha, only: :create
-
-  private
-
   def check_captcha
     unless verify_recaptcha(model: resource)
       self.resource = resource_class.new

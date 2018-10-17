@@ -42,12 +42,27 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Overwrite update_resource to let users to update their user without giving their password
   def update_resource(resource, params)
-    if current_user.provider.present?
+    if current_user.provider.present? && current_user.valid?
       params.delete('current_password')
       resource.update_without_password(params)
     else
       resource.update_with_password(params)
     end
+
+    if resource.errors.any?
+      error_dup = resource.errors.dup
+      error_dup.each { |k| resource.errors[(k.to_s + '_').to_sym] << resource.errors.delete(k).first }
+      flash.now[:notice] = nil
+    else
+      true
+    end
+  end
+
+  private
+
+  def update_resource_errors
+    error_dup = resource.errors.dup
+    error_dup.each { |k| resource.errors[(k.to_s + '_').to_sym] << resource.errors.delete(k).first }
   end
 
   # If you have extra params to permit, append them to the sanitizer.
