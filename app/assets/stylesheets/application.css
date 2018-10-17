@@ -160,3 +160,11 @@ div.field_with_errors div.ui-effects-wrapper {
 .buffer-bot-10 {
     padding-bottom: 10px;
 }
+
+.buffer-right-5 {
+    padding-right: 5px;
+}
+
+.buffer-left-5 {
+    margin-left: 5px;
+}
