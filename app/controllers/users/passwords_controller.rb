@@ -44,6 +44,7 @@ class Users::PasswordsController < Devise::PasswordsController
     unless verify_recaptcha(model: resource)
       self.resource = resource_class.new
       resource.validate # Look for any other validation errors besides Recaptcha
+      resource.errors[:email_].push resource.errors.delete(:email).first
       resource.errors.delete('password')
       resource.errors.add(:base, 'reCAPTCHA verification failed, please try again.')
       respond_with_navigational(resource) { render :new }

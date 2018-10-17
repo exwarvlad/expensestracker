@@ -1,22 +1,50 @@
-<h2>Forgot your password?</h2>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#reset_password').disableClientSideValidations();
+    });
+</script>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+<div class="form-gap"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="text-center">
+            <h3><i class="fa fa-lock fa-4x"></i></h3>
+            <h2 class="text-center">Forgot Password?</h2>
+            <p>You can reset your password here.</p>
+            <div class="panel-body">
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control devise' %>
+              <%= form_for(resource, as: resource_name, url: password_path(resource_name), id: 'register-form', html: { method: :post }) do |f| %>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon" style=""><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'email address' %>
+                  </div>
+                  <% if resource.errors[:email_].present? %>
+                      <%= label_tag :email_, resource.errors[:email_].last, class: 'message' %>
+                  <% end %>
+                </div>
+
+                  <%= recaptcha_tags class: 'buffer-bot-10' %>
+
+                  <% if resource.errors[:base].present? %>
+                      <%= label_tag :base, resource.errors[:base].last, class: 'message' %>
+                  <% end %>
+
+                <div class="form-group">
+                  <%= f.submit 'Reset Password', class: 'btn btn-lg btn-primary btn-block', id: 'reset_password' %>
+                </div>
+
+                <input type="hidden" class="hide" name="token" id="token" value="">
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-    <%= recaptcha_tags class: 'buffer-top-5' %>
-
-    <% if resource.errors[:base].present? %>
-        <%= label_tag :base, resource.errors[:base].last, class: 'message' %>
-    <% end %>
-
-  <div class="actions devise-buffer-top">
-    <%= f.submit "Send me reset password instructions", class: 'btn btn-default' %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
