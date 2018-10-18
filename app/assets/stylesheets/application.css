@@ -168,3 +168,7 @@ div.field_with_errors div.ui-effects-wrapper {
 .buffer-left-5 {
     margin-left: 5px;
 }
+
+.footer-copyright {
+    text-align: center;
+}
