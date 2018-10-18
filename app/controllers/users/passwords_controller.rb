@@ -19,9 +19,33 @@ class Users::PasswordsController < Devise::PasswordsController
   # end
 
   # PUT /resource/password
-  # def update
-  #   super
-  # end
+  def update
+    self.resource = resource_class.reset_password_by_token(resource_params)
+
+    if resource.errors.any?
+      error_dup = resource.errors.dup
+      error_dup.each { |k| resource.errors[(k.to_s + '_').to_sym] << resource.errors.delete(k).first }
+    else
+      true
+    end
+
+    yield resource if block_given?
+
+    if resource.errors.empty?
+      resource.unlock_access! if unlockable?(resource)
+      if Devise.sign_in_after_reset_password
+        flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
+        set_flash_message!(:notice, flash_message)
+        sign_in(resource_name, resource)
+      else
+        set_flash_message!(:notice, :updated_not_active)
+      end
+      respond_with resource, location: after_resetting_password_path_for(resource)
+    else
+      set_minimum_password_length
+      respond_with resource
+    end
+  end
 
   # protected
 
