@@ -5,8 +5,6 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:edit, :update, :destroy]
   before_action :set_filter, only: :index
 
-  extend ExpenseService
-
   # GET /expenses
   # GET /expenses.json
   def index

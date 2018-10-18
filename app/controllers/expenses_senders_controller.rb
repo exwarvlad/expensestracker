@@ -2,8 +2,6 @@ class ExpensesSendersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_expenses_sender, only: [:edit, :update]
 
-  extend ExpensesSenderService
-
   def edit
     @expenses_ids = params[:expenses]
     respond_to do |f|

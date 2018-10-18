@@ -2,8 +2,6 @@ class FiltersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_filter, only: [:update, :reset]
 
-  extend FilterService
-
   def update
     FilterService.update(@filter, filter_params)
 
