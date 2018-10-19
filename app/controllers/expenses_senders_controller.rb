@@ -11,10 +11,10 @@ class ExpensesSendersController < ApplicationController
   end
 
   def update
-    @expenses_sender = ExpensesSenderService.update(@expenses_sender, expenses_sender_params, expenses_parms)
+    @expenses_sender = ExpensesSenderService.update(@expenses_sender, expenses_sender_params, expenses_ids)
     respond_to do |f|
       if @expenses_sender.errors.empty? && verify_recaptcha(model: @expenses_sender)
-        SenderToEmailWorker.perform_async(@expenses_sender.email, current_user.id, expenses_parms)
+        SenderToEmailWorker.perform_async(@expenses_sender.email, current_user.id, expenses_ids)
         flash.now[:notice] = "Expenses pages successful deliver to #{@expenses_sender.email}"
         f.js { render template: 'expenses_senders/update' }
       else
@@ -33,7 +33,7 @@ class ExpensesSendersController < ApplicationController
     params.require(:expenses_sender).permit(:email)
   end
 
-  def expenses_parms
-    @expenses_sender.user.expenses.ids
+  def expenses_ids
+    Filter.check_expenses(@expenses_sender.user.id).ids
   end
 end
