@@ -35,12 +35,12 @@ RSpec.describe Filter, type: :model do
     it '.verify_custom_range' do
       # date end must be letter or equal Expense::CREATED_AT_END years
       data_filter = user.filter.data
-      invalid_custom_range = Filter.date_to_s(Date.today...Expense::CREATED_AT_END + 1.second)
+      invalid_custom_range = Filter.date_to_s(Date.today...Expense::CREATED_AT_END.call + 1.second)
       data_filter['duration'] = invalid_custom_range
       expect(user.filter.update(data: data_filter)).to be false
 
       # date start must be grater or equal Expense::CREATED_AT_START year
-      invalid_custom_range = Filter.date_to_s(Expense::CREATED_AT_START - 1.second...Date.today)
+      invalid_custom_range = Filter.date_to_s(Expense::CREATED_AT_START.call - 1.second...Date.today)
       data_filter['duration'] = invalid_custom_range
       expect(user.filter.update(data: data_filter)).to be false
     end

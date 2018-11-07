@@ -6,8 +6,8 @@ class Expense < ApplicationRecord
   PAGINATE_PREV = 10
   MIN_LENGTH = 1
   MAX_LENGTH = 42
-  CREATED_AT_START = Date.today - 100.year
-  CREATED_AT_END = Date.today.end_of_day
+  CREATED_AT_START = Proc.new { Date.today - 100.year }
+  CREATED_AT_END = Proc.new { Date.today.end_of_day }
 
   paginates_per PAGINATE_PREV
 
@@ -38,16 +38,16 @@ class Expense < ApplicationRecord
 
   def date_rangeable?
     return errors.add(:created_at, 'created at must be date') if created_at.nil?
-    range = CREATED_AT_START...CREATED_AT_END
+    range = CREATED_AT_START.call...CREATED_AT_END.call
     date = created_at.to_date
     errors.add(:created_at, "is missing range date #{error_message_date(date)}") unless range.include?(date)
   end
 
   def error_message_date(date)
-    if date < CREATED_AT_START
-      "(must be >= #{CREATED_AT_START.strftime('%B %d, %Y')})"
+    if date < CREATED_AT_START.call
+      "(must be >= #{CREATED_AT_START.call.strftime('%B %d, %Y')})"
     elsif date > CREATED_AT_END
-      "(must be <= #{CREATED_AT_END.strftime('%B %d, %Y')})"
+      "(must be <= #{CREATED_AT_END.call.strftime('%B %d, %Y')})"
     end
   end
 end
